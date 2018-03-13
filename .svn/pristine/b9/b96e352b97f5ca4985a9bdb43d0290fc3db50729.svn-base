@@ -1,0 +1,51 @@
+package com.qfedu.esys.service.impl;
+import java.util.List;
+
+import javax.annotation.Resource;
+import javax.transaction.Transactional;
+
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+import org.springframework.stereotype.Service;
+
+import com.qfedu.esys.ESysException;
+import com.qfedu.esys.dao.IUserDao;
+import com.qfedu.esys.entity.User;
+import com.qfedu.esys.service.IUserService;
+import com.qfedu.esys.util.ESysConstant;
+
+@Service
+@Transactional
+public class UserService implements IUserService {
+	private final static Logger LOG = LogManager.getLogger(UserService.class);
+
+	@Resource // @Autowired
+	private IUserDao userDao;
+	
+	@Override
+	public List<User> findAll() {
+		return userDao.findAll();
+	}
+
+	@Override
+	public void create(User u) {
+		userDao.create(u);
+	}
+
+	@Override
+	public void delete(String id) {
+		userDao.delete (id);
+	}
+
+	@Override
+	public User authenticate(String user, String password) {
+		User u = userDao.findByLoginName (user);
+		if (u == null) {
+			throw new ESysException(ESysConstant.ERR_LOGIN);
+		}
+		if (!password.equals(u.getPassword())) {
+			throw new ESysException(ESysConstant.ERR_LOGIN);
+		}
+		return u;
+	}
+}

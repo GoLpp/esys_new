@@ -1,0 +1,57 @@
+package com.qfedu.esys.controller;
+import java.util.List;
+
+import javax.annotation.Resource;
+
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.qfedu.common.entity.WoResultCode;
+import com.qfedu.esys.entity.User;
+import com.qfedu.esys.service.IUserService;
+import com.qfedu.esys.util.ESysConstant;
+import com.qfedu.esys.vo.GridEuiVo;
+
+@Controller
+@RequestMapping("/sys/user/")
+public class UserController {
+	private final static Logger LOG = LogManager.getLogger(UserController.class);
+	
+	@Resource // @Autowired
+	private IUserService userService;
+	
+	@RequestMapping("/crud")
+	public ModelAndView toMain () {
+		ModelAndView m = new ModelAndView();
+		// 视图解析器解析(前缀+视图名+后缀)：/WEB-INF/page/user.jsp
+		m.setViewName("user");
+		return m;
+	}
+	
+	@ResponseBody // 按照对象方式处理返回结果
+	@RequestMapping(value = "/list", produces = ESysConstant.APP_JSON) // 映射URL，并安装json格式返回数据
+	public GridEuiVo<User> getList () {
+		List<User> list = userService.findAll ();
+		GridEuiVo<User> grid = new GridEuiVo<User> (Long.valueOf(list.size()), list);
+		return grid;
+	}
+	
+	@ResponseBody // 按照对象方式处理返回结果
+	@RequestMapping(value = "/create", produces = ESysConstant.APP_JSON) // 映射URL，并安装json格式返回数据
+	public WoResultCode create (User u) {
+		userService.create(u);
+		return WoResultCode.getSuccessCode();
+	}
+	
+	@ResponseBody
+	@RequestMapping (value = "/delete", produces = ESysConstant.APP_JSON)
+	public WoResultCode delete (String id) {
+		userService.delete (id);
+		return WoResultCode.getSuccessCode();
+	}
+	
+}

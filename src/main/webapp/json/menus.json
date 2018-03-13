@@ -1,0 +1,23 @@
+[{
+	"id":1,
+	"text":"系统管理",
+	"state" : "closed",
+	"children" : [{
+		"id":11,
+		"text":"可展开行表格",
+		"resource":"Demo.woRowDetailGrid"
+	},{
+		"id":12,
+		"text":"标准表格",
+		"resource":"Demo.woStandardGrid"
+	},{
+		"id":13,
+		"text":"树表格",
+		"resource":"Demo.woTreeGrid"
+	},{
+		"id":14,
+		"text":"引用网页",
+		"resource":"crud.html",
+		"resourceType" : "url"
+	}]
+}]

@@ -1,0 +1,80 @@
+[
+	{
+		"id": "f9e3d887-3abe-4713-aae7-d99ceb7bc3b1",
+		"name": "部门",
+		"no": "0100",
+		"icon": null,
+		"resource": "Sys.DeptGrid",
+		"resourceType": "function",
+		"leaf": true,
+		"parentId": "e8032c03-2d73-43a6-9553-7287ad835cbb",
+		"parentName": "部门管理",
+		"text": "部门",
+		"iconCls": null,
+		"state": "open",
+		"checked": null,
+		"attributes": {
+			"id": "f9e3d887-3abe-4713-aae7-d99ceb7bc3b1",
+			"name": "部门",
+			"no": "0100",
+			"icon": null,
+			"resource": "Sys.DeptGrid",
+			"resourceType": "function",
+			"leaf": true,
+			"parentId": "e8032c03-2d73-43a6-9553-7287ad835cbb",
+			"parentName": "部门管理"
+		}
+	},
+	{
+		"id": "92a8816c-d5c3-40cc-b9bb-d11e91b99b2f",
+		"name": "人员",
+		"no": "0101",
+		"icon": null,
+		"resource": "Sys.StaffGrid",
+		"resourceType": "function",
+		"leaf": true,
+		"parentId": "e8032c03-2d73-43a6-9553-7287ad835cbb",
+		"parentName": "部门管理",
+		"text": "人员",
+		"iconCls": null,
+		"state": "open",
+		"checked": null,
+		"attributes": {
+			"id": "92a8816c-d5c3-40cc-b9bb-d11e91b99b2f",
+			"name": "人员",
+			"no": "0101",
+			"icon": null,
+			"resource": "Sys.StaffGrid",
+			"resourceType": "function",
+			"leaf": true,
+			"parentId": "e8032c03-2d73-43a6-9553-7287ad835cbb",
+			"parentName": "部门管理"
+		}
+	},
+	{
+		"id": "71e5d5f6-cbba-4134-b143-44146f351b42",
+		"name": "我的信息",
+		"no": "0102",
+		"icon": null,
+		"resource": "Sys.StaffUpdateForm",
+		"resourceType": "function",
+		"leaf": true,
+		"parentId": "e8032c03-2d73-43a6-9553-7287ad835cbb",
+		"parentName": "部门管理",
+		"text": "我的信息",
+		"iconCls": null,
+		"state": "open",
+		"checked": null,
+		"attributes": {
+			"id": "71e5d5f6-cbba-4134-b143-44146f351b42",
+			"name": "我的信息",
+			"no": "0102",
+			"icon": null,
+			"resource": "Sys.StaffUpdateForm",
+			"resourceType": "function",
+			"leaf": true,
+			"parentId": "e8032c03-2d73-43a6-9553-7287ad835cbb",
+			"parentName": "部门管理"
+		}
+	}
+]

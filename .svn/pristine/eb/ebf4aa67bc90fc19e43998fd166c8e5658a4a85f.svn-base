@@ -1,0 +1,47 @@
+package com.qfedu.esys.service.impl;
+
+import java.util.List;
+
+import javax.annotation.Resource;
+import javax.transaction.Transactional;
+
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+
+import com.qfedu.common.util.WoUtil;
+import com.qfedu.esys.dao.IMenuDao;
+import com.qfedu.esys.dto.MenuDto;
+import com.qfedu.esys.entity.Menu;
+import com.qfedu.esys.service.IMenuService;
+
+@Service
+@Transactional // 所有public方法都放在一個事务中
+public class MenuService implements IMenuService {
+    private final static Logger LOG = LogManager.getLogger(MenuService.class);
+
+    @Resource // @Autowired
+    private IMenuDao menuDao;
+
+    @Override
+    public List<Menu> getChildren(String parentId) {
+        // 1.查询所有子菜单
+        List<Menu> menus;
+        if (StringUtils.isEmpty(parentId)) {
+            // 查询所有顶级菜单
+            menus = menuDao.findAllTops();
+        } else {
+            // 查询parentId对应菜单下的子菜单
+            menus = menuDao.findAllByParentId(parentId);
+        }
+        return menus;
+    }
+
+	@Override
+	public void create(MenuDto dto) {
+		Menu m = dto.createEntity();
+		m.setId(WoUtil.uuid());
+		menuDao.create(m);
+	}
+}

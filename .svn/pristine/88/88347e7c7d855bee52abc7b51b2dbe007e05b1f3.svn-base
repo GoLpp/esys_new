@@ -1,0 +1,402 @@
+var Sys = {};
+Sys.MenuGrid = function(options) {
+	var tableId = 'woTable_' + options.woNodeId;
+	// 在tabs上增加一个tabpanel
+	$('#' + options.woTabId).tabs('add', {
+		title : options.woNodeText,
+		content : '<table id="' + tableId + '"></table>',
+		closable : true
+	});
+	$('#' + tableId).wogrid({
+		// table id
+		woId : tableId,
+		// 标题
+		woTitle : options.woNodeText,
+		// 类型：Tree,Standard,RowDetail
+		woGridType : 'Tree',
+		woDeleteUrl : 'sys/menu/delete',
+		woCreateUrl : 'sys/menu/create',
+		woUpdateUrl : 'sys/menu/update',
+		// 上级ID字段
+		parentField : 'parentId',
+		// http://www.jeasyui.com/documentation/index.php# treegrid
+		url : 'sys/menu/list',
+		idField : 'id',
+		treeField : 'name',
+		textField : 'name',
+		// pagination : true,
+		singleSelect : true,
+		columns : [ [ {
+			field : 'id',
+			title : 'ID',
+			width : 50,
+			hidden : true,
+			// 该字段会在修改表单中出现
+			woUpdate : {
+				readonly : true
+			}
+		}, {
+			field : 'name',
+			title : '名称',
+			width : 150,
+			// 该字段会在创建表单中出现
+			woCreate : {},
+			// 该字段会在修改表单中出现
+			woUpdate : {}
+		}, {
+			field : 'no',
+			title : '编号',
+			width : 50,
+			hidden : true
+		}, {
+			field : 'icon',
+			title : '图标',
+			width : 50,
+			woCreate : {},
+			woUpdate : {}
+		}, {
+			field : 'resource',
+			title : '资源',
+			width : 150,
+			woCreate : {},
+			woUpdate : {}
+		}, {
+			field : 'resourceType',
+			title : '资源类型',
+			width : 150,
+			woCreate : {
+				woType : 'woDictionaryCombo',
+				woDictionaryType : 'menutype'
+			},
+			woUpdate : {
+				woType : 'woDictionaryCombo',
+				woDictionaryType : 'menutype'
+			}
+		}, {
+			field : 'parentId',
+			title : '上级ID',
+			width : 50,
+			hidden : true,
+			woCreate : {},
+			woUpdate : {}
+		}, {
+			field : 'parentName',
+			title : '上级名称',
+			width : 100
+		} ] ],
+		// 创建表单字段和按钮配置
+		woCreateForm : {
+			// 字段
+			woFields : [ {
+				woType : 'combotree',
+				woName : 'parentId',
+				label : '上级',
+				idField : 'id',
+				textField : 'name',
+				treeField : 'name',
+				parentField : 'parentId',
+				width : 200,
+				panelWidth : 300,
+				url : 'sys/menu/getChildren',
+				woColSpan : 1,
+				columns : [ [ {
+					field : 'id',
+					title : 'ID',
+					width : 50
+				}, {
+					field : 'name',
+					title : '名称',
+					width : 100
+				}, {
+					field : 'parentId',
+					title : '上级ID',
+					width : 50
+				} ] ]
+			} ],
+			// 按钮配置
+			woButtons : [ {
+				woButtonType : 'woSave'
+			}, {
+				woButtonType : 'woCancel'
+			} ]
+		},
+		woUpdateForm : {
+			woFields : [ {
+				woType : 'combotree',
+				woName : 'parentId',
+				label : '上级',
+				idField : 'id',
+				textField : 'name',
+				treeField : 'name',
+				parentField : 'parentId',
+				width : 200,
+				panelWidth : 300,
+				url : 'sys/menu/getChildren',
+				woColSpan : 1,
+				columns : [ [ {
+					field : 'id',
+					title : 'ID',
+					width : 50
+				}, {
+					field : 'name',
+					title : '名称',
+					width : 100
+				}, {
+					field : 'parentId',
+					title : '上级ID',
+					width : 50
+				} ] ]
+			} ],
+			woButtons : [ {
+				woButtonType : 'woSave'
+			}, {
+				woButtonType : 'woCancel'
+			} ]
+		},
+		// 列表按钮配置
+		toolbar : [ {
+			woButtonType : 'woCreate'
+		}, {
+			woButtonType : 'woEdit'
+		}, {
+			woButtonType : 'woDelete'
+		}, {
+			woButtonType : 'woClear'
+		} ]
+	});
+};
+
+Sys.DictionaryGrid = function(options) {
+	var tableId = 'woTable_' + options.woNodeId;
+	// 在tabs上增加一个tabpanel
+	$('#' + options.woTabId).tabs('add', {
+		title : options.woNodeText,
+		content : '<table id="' + tableId + '"></table>',
+		closable : true
+	});
+	$('#' + tableId).wogrid({
+		woId : tableId,
+		woTitle : options.woNodeText,
+		url : 'sys/dictionary/list',
+		idField : 'id',
+		textField : 'name',
+		woGridType : 'Standard',
+		pagination : true,
+		singleSelect : false,
+		woDeleteUrl : 'sys/dictionary/delete',
+		woCreateUrl : 'sys/dictionary/create',
+		woUpdateUrl : 'sys/dictionary/update',
+		columns : [ [ {
+			field : 'id',
+			title : 'ID',
+			width : 50,
+			hidden : true,
+			woUpdate : {
+				readonly : true
+			}
+		}, {
+			field : 'dicType',
+			title : '类型',
+			width : 100,
+			woCreate : {},
+			woUpdate : {}
+		}, {
+			field : 'name',
+			title : 'KEY',
+			width : 100,
+			woCreate : {},
+			woUpdate : {}
+		}, {
+			field : 'val',
+			title : '值',
+			width : 100,
+			woCreate : {},
+			woUpdate : {}
+		}, {
+			field : 'description',
+			title : '说明',
+			width : 150,
+			woCreate : {},
+			woUpdate : {}
+		} ] ],
+		woCreateForm : {
+			woButtons : [ {
+				woButtonType : 'woSave'
+			}, {
+				woButtonType : 'woCancel'
+			} ]
+		},
+		woUpdateForm : {
+			woButtons : [ {
+				woButtonType : 'woSave'
+			}, {
+				woButtonType : 'woCancel'
+			} ]
+		},
+		woSearchFields : [ {
+			woName : 'dicType',
+			prompt : '请输入类型'
+		} ],
+		toolbar : [ {
+			woButtonType : 'woCreate'
+		}, {
+			woButtonType : 'woEdit'
+		}, {
+			woButtonType : 'woDelete'
+		}, {
+			woButtonType : 'woClear'
+		} ]
+	});
+};
+
+Sys.RoleGrid = function(options) {
+	var tableId = 'woTable_' + options.woNodeId;
+	// 在tabs上增加一个tabpanel
+	$('#' + options.woTabId).tabs('add', {
+		title : options.woNodeText,
+		content : '<table id="' + tableId + '"></table>',
+		closable : true
+	});
+	$('#' + tableId).wogrid({
+		woId : tableId,
+		woTitle : options.woNodeText,
+		url : 'sys/role/list',
+		idField : 'id',
+		textField : 'name',
+		woGridType : 'Standard',
+		pagination : true,
+		singleSelect : false,
+		woDeleteUrl : 'sys/role/delete',
+		woCreateUrl : 'sys/role/create',
+		woUpdateUrl : 'sys/role/update',
+		columns : [ [ {
+			field : 'id',
+			title : 'ID',
+			width : 50,
+			hidden : true,
+			woUpdate : {
+				readonly : true,
+				woColSpan : 2,
+				width : 400
+			}
+		}, {
+			field : 'name',
+			title : '名称',
+			width : 100,
+			woCreate : {},
+			woUpdate : {}
+		}, {
+			field : 'typeName',
+			title : '类型',
+			width : 100
+		}, {
+			field : 'type',
+			title : '类型',
+			width : 100,
+			hidden : true,
+			woCreate : {
+				woType : 'woDictionaryCombo',
+				woDictionaryType : 'roletype'
+			},
+			woUpdate : {
+				woType : 'woDictionaryCombo',
+				woDictionaryType : 'roletype'
+			}
+		}, {
+			field : 'description',
+			title : '说明',
+			width : 150,
+			woCreate : {
+				woColSpan : 2,
+				width : 400
+			},
+			woUpdate : {
+				woColSpan : 2,
+				width : 400
+			}
+		} ] ],
+		woCreateForm : {
+			woFields : [ {
+				woType : 'combotree',
+				woName : 'menus',
+				label : '菜单',
+				idField : 'id',
+				textField : 'name',
+				treeField : 'name',
+				parentField : 'parentId',
+				multiple : true,
+				cascadeCheck : false,
+				woColSpan : 2,
+				width : 400,
+				panelWidth : 400,
+				url : 'sys/menu/getChildren',
+				columns : [ [ {
+					field : 'id',
+					title : 'ID',
+					width : 50
+				}, {
+					field : 'name',
+					title : '名称',
+					width : 100
+				}, {
+					field : 'parentId',
+					title : '上级ID',
+					width : 50
+				} ] ]
+			} ],
+			woButtons : [ {
+				woButtonType : 'woSave'
+			}, {
+				woButtonType : 'woCancel'
+			} ]
+		},
+		woUpdateForm : {
+			woFields : [ {
+				woType : 'combotree',
+				woName : 'menus',
+				label : '菜单',
+				idField : 'id',
+				textField : 'name',
+				treeField : 'name',
+				parentField : 'parentId',
+				multiple : true,
+				cascadeCheck : false,
+				woColSpan : 2,
+				width : 400,
+				panelWidth : 400,
+				url : 'sys/menu/getChildren',
+				columns : [ [ {
+					field : 'id',
+					title : 'ID',
+					width : 50
+				}, {
+					field : 'name',
+					title : '名称',
+					width : 100
+				}, {
+					field : 'parentId',
+					title : '上级ID',
+					width : 50
+				} ] ]
+			} ],
+			woButtons : [ {
+				woButtonType : 'woSave'
+			}, {
+				woButtonType : 'woCancel'
+			} ]
+		},
+		woSearchFields : [ {
+			woName : 'name',
+			woText : '名称'
+		} ],
+		toolbar : [ {
+			woButtonType : 'woCreate'
+		}, {
+			woButtonType : 'woEdit'
+		}, {
+			woButtonType : 'woDelete'
+		}, {
+			woButtonType : 'woClear'
+		} ]
+	});
+};
