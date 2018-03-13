@@ -118,7 +118,7 @@
 		<form id="woFormRegister" method="post" novalidate>
 			<div class="fitem">
 				<label>登录名:</label>
-				<input name="user" class="easyui-textbox"  data-options="iconCls:'icon-man'" required="true" style="height:30px;">
+				<input name="loginName" class="easyui-textbox"  data-options="iconCls:'icon-man'" required="true" style="height:30px;">
 			</div>
 			<div class="fitem">
 				<label>密码:</label>
@@ -175,6 +175,8 @@
 							msg: result.msg
 						});
 					} else {
+						$('#woDlgRigister').dialog("close");
+						$('#woDlgLogin').dialog('open');			
 						$.messager.show({
 							title: 'Success',
 							msg: result.msg

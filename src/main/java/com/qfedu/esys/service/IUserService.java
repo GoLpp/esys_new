@@ -24,4 +24,6 @@ public interface IUserService {
 
 	void importExcel(MultipartFile woUserImportFile);
 
+	void register(UserDto dto);
+
 }

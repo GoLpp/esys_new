@@ -1,6 +1,7 @@
 package com.qfedu.esys.service.impl;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -23,6 +24,7 @@ import com.qfedu.common.util.WoUtil;
 import com.qfedu.esys.ESysException;
 import com.qfedu.esys.dao.IUserDao;
 import com.qfedu.esys.dto.UserDto;
+import com.qfedu.esys.entity.Role;
 import com.qfedu.esys.entity.User;
 import com.qfedu.esys.service.IUserService;
 import com.qfedu.esys.util.ESysConstant;
@@ -104,5 +106,12 @@ public class UserService implements IUserService {
 		} catch (IOException e) {
 			e.printStackTrace();  
 		}
+	}
+
+	@Override
+	public void register(UserDto dto) {
+		dto.setRoles("8a873ab761fb40490161fb4383950001");
+		User user = dto.createEntity();
+		userDao.create(user);
 	}
 }

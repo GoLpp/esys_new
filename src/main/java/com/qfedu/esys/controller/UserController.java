@@ -103,4 +103,12 @@ public class UserController {
 		userService.importExcel(woUserImportFile);
 		return WoResultCode.getSuccessCode();
 	}
+	
+	@ResponseBody // 按照对象方式处理返回结果
+	@RequestMapping(value = "/register", produces = ESysConstant.APP_JSON) // 映射URL，并安装json格式返回数据
+	public WoResultCode register (UserDto dto) {
+		userService.register(dto);
+		return WoResultCode.getSuccessCode();
+	}
+	
 }
