@@ -46,9 +46,11 @@ public class HomeController {
 	
 	@ResponseBody
 	@RequestMapping (value="/authentication", produces = ESysConstant.APP_JSON)
-	public WoResultCode login (String user, String password, HttpServletRequest req) {
+	public WoResultCode login (String user, String password, String num, HttpServletRequest req) {
 		String aString = (String) req.getSession().getAttribute("code");
-		LOG.info("---------"+aString);
+		if(num==null || !num.equalsIgnoreCase(aString)) {
+			return new WoResultCode(0, "验证码输入错误");
+		}
 		try {
 			UserDto u = userService.authenticate (user, password);
 			req.getSession().setAttribute(ESysConstant.SESSION_USER, u);
