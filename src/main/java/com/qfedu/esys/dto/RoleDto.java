@@ -32,6 +32,7 @@ public class RoleDto {
         this.id = r.getId();
         this.name = r.getName();
         this.description = r.getDescription();
+        this.type = r.getType();
         for (Menu m : r.getMenus()) {
             if (!"".equals(menuIds)) {
                 menuIds += ",";

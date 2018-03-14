@@ -283,11 +283,11 @@ Sys.RoleGrid = function(options) {
 			woCreate : {},
 			woUpdate : {}
 		}, {
-			field : 'typeName',
+			field : 'type',
 			title : '类型',
 			width : 100
 		}, {
-			field : 'type',
+			field : 'typeName',
 			title : '类型',
 			width : 100,
 			hidden : true,
