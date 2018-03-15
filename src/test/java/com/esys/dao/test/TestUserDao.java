@@ -13,10 +13,10 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.qfedu.common.entity.WoResultCode;
 import com.qfedu.esys.ESysException;
-import com.qfedu.esys.dao.IUserDao;
+import com.qfedu.esys.dao.UserDao;
 import com.qfedu.esys.dto.UserDto;
 import com.qfedu.esys.entity.User;
-import com.qfedu.esys.service.IUserService;
+import com.qfedu.esys.service.UserService;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -25,10 +25,10 @@ public class TestUserDao {
 	private final static Logger LOG = LogManager.getLogger(TestUserDao.class);
 	
 	@Resource
-	private IUserDao userDao;
+	private UserDao userDao;
 	
 	@Resource
-	private IUserService userService;
+	private UserService userService;
 	
 	@Test
 	@Transactional

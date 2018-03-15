@@ -13,19 +13,19 @@ import org.springframework.stereotype.Service;
 
 import com.qfedu.common.entity.WoPage;
 import com.qfedu.common.util.WoUtil;
-import com.qfedu.esys.dao.IRoleDao;
+import com.qfedu.esys.dao.RoleDao;
 import com.qfedu.esys.dto.RoleDto;
 import com.qfedu.esys.entity.Menu;
 import com.qfedu.esys.entity.Role;
-import com.qfedu.esys.service.IRoleService;
+import com.qfedu.esys.service.RoleService;
 
 @Service
 @Transactional
-public class RoleService implements IRoleService{
-	private final static Logger LOG = LogManager.getLogger(RoleService.class);
+public class RoleServiceImpl implements RoleService{
+	private final static Logger LOG = LogManager.getLogger(RoleServiceImpl.class);
 	
 	@Resource
-	private IRoleDao roleDao;
+	private RoleDao roleDao;
 	
 	@Override
 	public WoPage<RoleDto> getGridData(String name, long start, Long rows) {

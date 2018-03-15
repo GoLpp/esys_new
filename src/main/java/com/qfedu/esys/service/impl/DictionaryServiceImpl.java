@@ -12,17 +12,17 @@ import org.springframework.stereotype.Service;
 
 import com.qfedu.common.entity.WoPage;
 import com.qfedu.common.util.WoUtil;
-import com.qfedu.esys.dao.IDictionaryDao;
+import com.qfedu.esys.dao.DictionaryDao;
 import com.qfedu.esys.entity.Dictionary;
-import com.qfedu.esys.service.IDictionaryService;
+import com.qfedu.esys.service.DictionaryService;
 
 @Service
 @Transactional
-public class DictionaryService implements IDictionaryService {
-	private final static Logger LOG = LogManager.getLogger(DictionaryService.class);
+public class DictionaryServiceImpl implements DictionaryService {
+	private final static Logger LOG = LogManager.getLogger(DictionaryServiceImpl.class);
 
 	@Resource
-	private IDictionaryDao dictionaryDao;
+	private DictionaryDao dictionaryDao;
 	
 	@Override
 	public WoPage<Dictionary> getGridData(String dicType, Long start, Long limit) {

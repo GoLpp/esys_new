@@ -22,20 +22,20 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.qfedu.common.util.WoUtil;
 import com.qfedu.esys.ESysException;
-import com.qfedu.esys.dao.IUserDao;
+import com.qfedu.esys.dao.UserDao;
 import com.qfedu.esys.dto.UserDto;
 import com.qfedu.esys.entity.Role;
 import com.qfedu.esys.entity.User;
-import com.qfedu.esys.service.IUserService;
+import com.qfedu.esys.service.UserService;
 import com.qfedu.esys.util.ESysConstant;
 
 @Service
 @Transactional
-public class UserService implements IUserService {
-	private final static Logger LOG = LogManager.getLogger(UserService.class);
+public class UserServiceImpl implements UserService {
+	private final static Logger LOG = LogManager.getLogger(UserServiceImpl.class);
 
 	@Resource // @Autowired
-	private IUserDao userDao;
+	private UserDao userDao;
 	
 	@Override
 	public List<User> findAll() {

@@ -13,19 +13,19 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 
-import com.qfedu.common.dao.IBaseDao;
+import com.qfedu.common.dao.BaseDao;
 import com.qfedu.common.entity.WoPage;
 import com.qfedu.common.util.WoUtil;
 
 // @Repository
 @SuppressWarnings(value = { "unchecked" })
-public class BaseDao<E> implements IBaseDao<E> {
-	private final static Logger LOG = LogManager.getLogger(BaseDao.class);
+public class BaseDaoImpl<E> implements BaseDao<E> {
+	private final static Logger LOG = LogManager.getLogger(BaseDaoImpl.class);
 
 	private Class<?> entityClass;
 	private String entityName;
 
-	public BaseDao() {
+	public BaseDaoImpl() {
 		ParameterizedType pt = (ParameterizedType) this.getClass().getGenericSuperclass();
 		entityClass = (Class<?>) pt.getActualTypeArguments()[0];
 		entityName = entityClass.getSimpleName();

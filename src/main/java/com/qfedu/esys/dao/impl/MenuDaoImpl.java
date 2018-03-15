@@ -9,14 +9,14 @@ import org.apache.log4j.Logger;
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
 
-import com.qfedu.common.dao.impl.BaseDao;
-import com.qfedu.esys.dao.IMenuDao;
+import com.qfedu.common.dao.impl.BaseDaoImpl;
+import com.qfedu.esys.dao.MenuDao;
 import com.qfedu.esys.entity.Menu;
 
 @Repository
-public class MenuDao extends BaseDao<Menu> implements IMenuDao {
+public class MenuDaoImpl extends BaseDaoImpl<Menu> implements MenuDao {
 
-	private final static Logger LOG = LogManager.getLogger(MenuDao.class);
+	private final static Logger LOG = LogManager.getLogger(MenuDaoImpl.class);
 
 	// @Resource // @Autowired
 	// private SessionFactory sessionFactory;

@@ -13,7 +13,7 @@ import com.qfedu.common.entity.WoResultCode;
 import com.qfedu.esys.ESysException;
 import com.qfedu.esys.dto.UserDto;
 import com.qfedu.esys.entity.User;
-import com.qfedu.esys.service.IUserService;
+import com.qfedu.esys.service.UserService;
 import com.qfedu.esys.util.ESysConstant;
 
 @Controller
@@ -42,7 +42,7 @@ public class HomeController {
 	}
 	
 	@Resource
-	private IUserService userService;
+	private UserService userService;
 	
 	@ResponseBody
 	@RequestMapping (value="/authentication", produces = ESysConstant.APP_JSON)

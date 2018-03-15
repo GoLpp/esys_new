@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import com.qfedu.esys.dto.MenuDto;
 import com.qfedu.esys.entity.Menu;
 
-public interface IMenuService {
+public interface MenuService {
 
 	/**
 	 * @param parentId

@@ -13,27 +13,27 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import com.qfedu.common.util.WoUtil;
-import com.qfedu.esys.dao.IMenuDao;
-import com.qfedu.esys.dao.IRoleDao;
-import com.qfedu.esys.dao.impl.RoleDao;
+import com.qfedu.esys.dao.MenuDao;
+import com.qfedu.esys.dao.RoleDao;
+import com.qfedu.esys.dao.impl.RoleDaoImpl;
 import com.qfedu.esys.dto.MenuDto;
 import com.qfedu.esys.dto.RoleDto;
 import com.qfedu.esys.dto.UserDto;
 import com.qfedu.esys.entity.Menu;
 import com.qfedu.esys.entity.Role;
 import com.qfedu.esys.entity.User;
-import com.qfedu.esys.service.IMenuService;
+import com.qfedu.esys.service.MenuService;
 
 @Service
 @Transactional // 所有public方法都放在一個事务中
-public class MenuService implements IMenuService {
-	private final static Logger LOG = LogManager.getLogger(MenuService.class);
+public class MenuServiceImpl implements MenuService {
+	private final static Logger LOG = LogManager.getLogger(MenuServiceImpl.class);
 
 	@Resource // @Autowired
-	private IMenuDao menuDao;
+	private MenuDao menuDao;
 	
 	@Resource 
-	private IRoleDao roleDao;
+	private RoleDao roleDao;
 
 	@Override
 	public List<Menu> getChildren(String parentId, HttpServletRequest req) {

@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.qfedu.common.entity.WoPage;
 import com.qfedu.common.entity.WoResultCode;
 import com.qfedu.esys.dto.RoleDto;
-import com.qfedu.esys.service.IRoleService;
+import com.qfedu.esys.service.RoleService;
 import com.qfedu.esys.util.ESysConstant;
 import com.qfedu.esys.vo.GridEuiVo;
 
@@ -19,7 +19,7 @@ public class RoleController {
 	private final static Logger LOG = LogManager.getLogger(RoleController.class);
 	
 	@Resource
-	private IRoleService roleService;  
+	private RoleService roleService;  
 	
 	@RequestMapping(value="/list")
 	public GridEuiVo<RoleDto> getGridData(String name, Long page, Long rows) {

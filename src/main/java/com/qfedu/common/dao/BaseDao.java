@@ -11,7 +11,7 @@ import com.qfedu.common.entity.WoPage;
  *
  * @param <E> 实体类型
  */
-public interface IBaseDao<E> {
+public interface BaseDao<E> {
 	
 	/**
 	 * 增加

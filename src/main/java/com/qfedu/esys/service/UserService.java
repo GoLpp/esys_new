@@ -8,7 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.qfedu.esys.dto.UserDto;
 import com.qfedu.esys.entity.User;
 
-public interface IUserService {
+public interface UserService {
 
 	List<User> findAll();
 

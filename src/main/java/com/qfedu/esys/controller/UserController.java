@@ -20,7 +20,7 @@ import com.qfedu.common.entity.WoResultCode;
 import com.qfedu.common.util.WoUtil;
 import com.qfedu.esys.dto.UserDto;
 import com.qfedu.esys.entity.User;
-import com.qfedu.esys.service.IUserService;
+import com.qfedu.esys.service.UserService;
 import com.qfedu.esys.util.ESysConstant;
 import com.qfedu.esys.vo.GridEuiVo;
 import com.qfedu.esys.vo.UserEuiVo;
@@ -31,7 +31,7 @@ public class UserController {
 	private final static Logger LOG = LogManager.getLogger(UserController.class);
 	
 	@Resource // @Autowired
-	private IUserService userService; 
+	private UserService userService; 
 		
 	@ResponseBody // 按照对象方式处理返回结果
 	@RequestMapping(value = "/list1", produces = ESysConstant.APP_JSON) // 映射URL，并安装json格式返回数据

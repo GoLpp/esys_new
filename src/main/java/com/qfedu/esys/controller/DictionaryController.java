@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.qfedu.common.entity.WoResultCode;
 import com.qfedu.common.util.WoUtil;
 import com.qfedu.esys.entity.Dictionary;
-import com.qfedu.esys.service.IDictionaryService;
+import com.qfedu.esys.service.DictionaryService;
 import com.qfedu.esys.vo.GridEuiVo;
 
 @RestController
@@ -22,7 +22,7 @@ public class DictionaryController {
 	private final static Logger LOG = LogManager.getLogger(DictionaryController.class);
 
 	@Resource
-	private IDictionaryService dictionaryService;
+	private DictionaryService dictionaryService;
 
 	@RequestMapping("/list")
 	public GridEuiVo<Dictionary> getDictionaryList(String dicType, Long page, Long rows) {

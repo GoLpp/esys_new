@@ -2,13 +2,13 @@ package com.qfedu.esys.dao;
 
 import java.util.List;
 
-import com.qfedu.common.dao.IBaseDao;
+import com.qfedu.common.dao.BaseDao;
 import com.qfedu.esys.entity.Menu;
 
 /**
  * @author cailei
  */
-public interface IMenuDao extends IBaseDao<Menu>{
+public interface MenuDao extends BaseDao<Menu>{
 
 	List<Menu> findAllTops();
 

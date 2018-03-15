@@ -183,7 +183,7 @@ public class User implements Serializable {
 	public void setDiscusses(List<Discuss> discusses) {
 		this.discusses = discusses;
 	}
-
+	
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", loginName=" + loginName + ", password=" + password + ", sex=" + sex + ", tel="

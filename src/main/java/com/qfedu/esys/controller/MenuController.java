@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.qfedu.common.entity.WoResultCode;
 import com.qfedu.esys.dto.MenuDto;
 import com.qfedu.esys.entity.Menu;
-import com.qfedu.esys.service.IMenuService;
+import com.qfedu.esys.service.MenuService;
 import com.qfedu.esys.util.ESysConstant;
 import com.qfedu.esys.vo.MenuEuiVo;
 
@@ -24,7 +24,7 @@ public class MenuController {
     private final static Logger LOG = LogManager.getLogger(MenuController.class);
 
     @Resource // @Autowired
-    private IMenuService menuService;
+    private MenuService menuService;
 
     @RequestMapping(value = "/getChildren")
     public List<MenuEuiVo> getChildren(String id, HttpServletRequest req) {

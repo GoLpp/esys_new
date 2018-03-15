@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.qfedu.common.entity.WoPage;
 import com.qfedu.esys.entity.Dictionary;
-public interface IDictionaryService {
+public interface DictionaryService {
 
 	WoPage<Dictionary> getGridData(String dicType, Long start, Long limit);
 

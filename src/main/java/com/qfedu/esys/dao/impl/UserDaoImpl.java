@@ -11,12 +11,12 @@ import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
 
 import com.qfedu.common.util.WoUtil;
-import com.qfedu.esys.dao.IUserDao;
+import com.qfedu.esys.dao.UserDao;
 import com.qfedu.esys.entity.User;
 
 @Repository
-public class UserDao implements IUserDao {
-	private final static Logger LOG = LogManager.getLogger(UserDao.class);
+public class UserDaoImpl implements UserDao {
+	private final static Logger LOG = LogManager.getLogger(UserDaoImpl.class);
 
 	@Resource // @Autowired
 	private SessionFactory sessionFactory;

@@ -7,7 +7,7 @@ import org.apache.log4j.Logger;
 import com.qfedu.esys.dto.UserDto;
 import com.qfedu.esys.entity.User;
 
-public interface IUserDao {
+public interface UserDao {
 
 	List<User> findAll();
 
