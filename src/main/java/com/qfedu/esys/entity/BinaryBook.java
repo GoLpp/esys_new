@@ -1,19 +1,23 @@
 package com.qfedu.esys.entity;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.apache.ibatis.annotations.One;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.qfedu.common.util.WoConstant;
 @Entity
 @Table(name="sys_binarybook")
@@ -41,6 +45,11 @@ public class BinaryBook {
 	
 	@Column(length=2)
 	private String statu;
+	
+	//借书记录和图书
+	@JsonIgnore
+	@OneToMany(mappedBy="binaryBook")
+	private List<LendRcord> lendRcords;
 
 	public BinaryBook() {
 	}
@@ -101,6 +110,14 @@ public class BinaryBook {
 
 	public void setStatu(String statu) {
 		this.statu = statu;
+	}
+	
+	public List<LendRcord> getLendRcords() {
+		return lendRcords;
+	}
+
+	public void setLendRcords(List<LendRcord> lendRcords) {
+		this.lendRcords = lendRcords;
 	}
 
 	@Override

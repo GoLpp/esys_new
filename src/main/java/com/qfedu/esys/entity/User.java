@@ -68,6 +68,19 @@ public class User implements Serializable {
 	@OneToMany(mappedBy="user")
 	private List<UserBook> userBooks;
 	
+	//用户和借书记录
+	@JsonIgnore
+	@OneToMany(mappedBy="user")
+	private List<LendRcord> lendRcords;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy="user")
+	private List<Article> articles;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy="user")
+	private List<Discuss> discusses;
+	
 	public List<Role> getRoles() {
 		return roles;
 	}
@@ -147,9 +160,35 @@ public class User implements Serializable {
 		this.userBooks = userBooks;
 	}
 
+	public List<LendRcord> getLendRcords() {
+		return lendRcords;
+	}
+
+	public void setLendRcords(List<LendRcord> lendRcords) {
+		this.lendRcords = lendRcords;
+	}
+
+	public List<Article> getArticles() {
+		return articles;
+	}
+
+	public void setArticles(List<Article> articles) {
+		this.articles = articles;
+	}
+
+	public List<Discuss> getDiscusses() {
+		return discusses;
+	}
+
+	public void setDiscusses(List<Discuss> discusses) {
+		this.discusses = discusses;
+	}
+
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", loginName=" + loginName + ", password=" + password + ", sex=" + sex + ", tel="
-				+ tel + ", headImage=" + headImage + ", createTime=" + createTime + ", roles=" + roles + "]";
+				+ tel + ", headImage=" + headImage + ", createTime=" + createTime + ", roles=" + roles + ", userBooks="
+				+ userBooks + ", lendRcords=" + lendRcords + ", articles=" + articles + ", discusses=" + discusses
+				+ "]";
 	}
 }
