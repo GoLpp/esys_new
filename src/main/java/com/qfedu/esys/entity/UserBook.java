@@ -17,6 +17,8 @@ import org.hibernate.annotations.GenericGenerator;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.qfedu.common.util.WoConstant;
+
+import net.sf.ehcache.search.aggregator.Count;
 @Entity
 @Table(name="sys_userbook")
 public class UserBook {
@@ -35,6 +37,9 @@ public class UserBook {
 	@DateTimeFormat(pattern = WoConstant.FORMAT_DATETIME)
 	private Date upTime;
 	
+	@Column(length=20)
+	private Integer count;
+	
 	@Column(length=100)
 	private String url;
 	
@@ -45,11 +50,12 @@ public class UserBook {
 	public UserBook() {
 	}
 
-	public UserBook(String id, String bookName, Date upTime, String url, User user) {
+	public UserBook(String id, String bookName, Date upTime, Integer count, String url, User user) {
 		super();
 		this.id = id;
 		this.bookName = bookName;
 		this.upTime = upTime;
+		this.count = count;
 		this.url = url;
 		this.user = user;
 	}
@@ -78,6 +84,14 @@ public class UserBook {
 		this.upTime = upTime;
 	}
 
+	public Integer getCount() {
+		return count;
+	}
+
+	public void setCount(Integer count) {
+		this.count = count;
+	}
+
 	public String getUrl() {
 		return url;
 	}
@@ -96,7 +110,7 @@ public class UserBook {
 
 	@Override
 	public String toString() {
-		return "UserBook [id=" + id + ", bookName=" + bookName + ", upTime=" + upTime + ", url=" + url + ", user="
-				+ user + "]";
+		return "UserBook [id=" + id + ", bookName=" + bookName + ", upTime=" + upTime + ", count=" + count + ", url="
+				+ url + ", user=" + user + "]";
 	}
 }
