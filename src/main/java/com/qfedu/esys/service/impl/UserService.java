@@ -110,7 +110,7 @@ public class UserService implements IUserService {
 
 	@Override
 	public void register(UserDto dto) {
-		dto.setRoles("8a873ab761fb40490161fb4383950001");
+		dto.setRoles("1");
 		User user = dto.createEntity();
 		userDao.create(user);
 	}

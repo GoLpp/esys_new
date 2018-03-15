@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -19,6 +20,7 @@ import javax.persistence.TemporalType;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.qfedu.common.util.WoConstant;
 
 @Entity
@@ -60,6 +62,11 @@ public class User implements Serializable {
 	joinColumns = {@JoinColumn(name = "user_id")},
 	inverseJoinColumns = {@JoinColumn(name = "role_id")})
 	private List<Role> roles;
+	
+	//用户图书
+	@JsonIgnore
+	@OneToMany(mappedBy="user")
+	private List<UserBook> userBooks;
 	
 	public List<Role> getRoles() {
 		return roles;
@@ -130,6 +137,14 @@ public class User implements Serializable {
 	 */
 	public Boolean isAdmin () {
 		return "admin".equals(this.getLoginName());
+	}
+
+	public List<UserBook> getUserBooks() {
+		return userBooks;
+	}
+
+	public void setUserBooks(List<UserBook> userBooks) {
+		this.userBooks = userBooks;
 	}
 
 	@Override
