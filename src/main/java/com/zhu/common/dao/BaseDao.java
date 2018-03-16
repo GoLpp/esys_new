@@ -8,7 +8,6 @@ import com.zhu.common.entity.WoPage;
 
 
 /**
- * @author cailei
  *
  * @param <E> 实体类型
  */

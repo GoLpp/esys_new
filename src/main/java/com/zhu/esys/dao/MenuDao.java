@@ -7,7 +7,6 @@ import com.zhu.esys.entity.Menu;
 
 
 /**
- * @author cailei
  */
 public interface MenuDao extends BaseDao<Menu>{
 

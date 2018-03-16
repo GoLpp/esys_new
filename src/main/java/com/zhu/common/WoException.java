@@ -8,7 +8,6 @@ import com.zhu.common.entity.WoResultCode;
 
 /**
  * 项目异常类
- * @author cailei
  * 
  */
 public class WoException extends RuntimeException {

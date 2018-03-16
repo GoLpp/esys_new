@@ -24,9 +24,7 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public List<User> findAll() {
-		// select * from sys_user u;
 		String hql = "from User u";
-		// 和jdbc比较：connection -> statement -> resultset
 		return sessionFactory.getCurrentSession().createQuery(hql, User.class).list();
 	}
 
@@ -42,7 +40,6 @@ public class UserDaoImpl implements UserDao {
 	@Override
 	public void delete(User user) {
 		sessionFactory.getCurrentSession().delete(user);
-		// sessionFactory.getCurrentSession().delete(null);
 	}
 
 	@Override
@@ -58,7 +55,6 @@ public class UserDaoImpl implements UserDao {
 		if (!WoUtil.isEmpty(loginName)) {
 			hql += " where u.loginName like :name";
 		}
-		//hql += " order by u.createTime desc";
 		Query<User> query = sessionFactory.getCurrentSession().createQuery(hql, User.class);
 		if (!WoUtil.isEmpty(loginName)) {
 			query.setParameter("name", "%" + loginName + "%");

@@ -7,9 +7,7 @@ import com.zhu.esys.entity.Menu;
 
 
 /**
- * EasyUI的菜单数据dto，对应EasyUI的tree控件的node数据，具体参数参考：http://www.jeasyui.com/documentation/index.php中的tree-Events中的说明.
  * 
- * @author cailei
  *
  */
 public class MenuEuiVo {
