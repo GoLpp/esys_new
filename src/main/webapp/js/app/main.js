@@ -10,8 +10,8 @@ $(document).ready(function() {
 				} else if (node.attributes.resource) {
 					if (node.attributes.resourceType == 'url') {
 						$('#woContentTabPanel').tabs ('add', {
-							// href : node.resource,
-							content : '<iframe width=95% height=95% src="' + node.attributes.resource + '" style="margin:10px 10px"/>',
+							href : node.attributes.resource,
+							//content : '<iframe width=95% height=95% src="' + node.attributes.resource + '" style="margin:10px 10px"/>',
 							closable : true,
 							title : node.text,
 						});

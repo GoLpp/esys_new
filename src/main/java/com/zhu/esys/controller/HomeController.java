@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -65,5 +66,10 @@ public class HomeController {
 	public WoResultCode logout (HttpServletRequest req) {
 		req.getSession().removeAttribute(ESysConstant.SESSION_USER);
 		return WoResultCode.getSuccessCode();
+	}
+	
+	@RequestMapping(value="/page/{pagePath}") 
+	public String page (@PathVariable String pagePath){
+		return pagePath;
 	}
 }
