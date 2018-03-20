@@ -15,6 +15,7 @@
             	<th data-options="field:'id',width:100">图书编号</th>
             	<th data-options="field:'author',width:100">作者</th>
             	<th data-options="field:'bookName',width:100">书名</th>
+            	<th data-options="field:'descrip', width:100">简介</th>
             	<th data-options="field:'publishTime',width:100">出版时间</th>
             	<th data-options="field:'statu',width:100">状态</th>
             	<th data-options="field:'url',width:100">下载地址</th>
@@ -29,7 +30,7 @@
 		<a id="btn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-remove'">删除</a>
 	</div>
 	
-	<div id="createUser" class="easyui-dialog" style="width:600px;height:300px"
+	<div id="createUser" class="easyui-dialog" style="width:400px;height:300px"
 		data-options="title:'My Dialog',buttons:'#tb',closed:true,modal:true">
 		<form id="createUser-form" method="post" enctype="multipart/form-data">
 			<div>

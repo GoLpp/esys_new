@@ -36,6 +36,9 @@ public class BinaryBook {
 	@Column(length=100)
 	private String author;
 	
+	@Column(length=200)
+	private String descrip;
+	
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern=WoConstant.FORMAT_DATETIME)
 	private Date publishTime;
@@ -134,9 +137,18 @@ public class BinaryBook {
 		this.lendRcords = lendRcords;
 	}
 
+	public String getDescrip() {
+		return descrip;
+	}
+
+	public void setDescrip(String descrip) {
+		this.descrip = descrip;
+	}
+
 	@Override
 	public String toString() {
-		return "BinaryBook [id=" + id + ", bookName=" + bookName + ", author=" + author + ", publishTime=" + publishTime
-				+ ", url=" + url + ", count=" + count + ", statu=" + statu + ", lendRcords=" + lendRcords + "]";
+		return "BinaryBook [id=" + id + ", bookName=" + bookName + ", author=" + author + ", descrip=" + descrip
+				+ ", publishTime=" + publishTime + ", url=" + url + ", count=" + count + ", statu=" + statu
+				+ ", lendRcords=" + lendRcords + "]";
 	}	
 }
