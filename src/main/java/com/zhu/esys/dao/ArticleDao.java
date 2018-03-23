@@ -1,16 +1,9 @@
 package com.zhu.esys.dao;
 
-import java.util.List;
 
+import com.zhu.common.dao.BaseDao;
 import com.zhu.esys.entity.Article;
 
-public interface ArticleDao {
+public interface ArticleDao extends BaseDao<Article>{
 	
-	List<Article> findAll(Long start, Long count, String userId);
-	
-	void create(Article article);
-	
-	void update(Article article);
-	
-	void delete(Article article);
 }
