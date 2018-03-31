@@ -29,7 +29,7 @@
 			<a id="delete-book-btn" onclick="deletebook()" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-remove'">删除</a>		
 		</div>
 		<div id="import-book" style="float:left">
-			<a id="import-book-btn" onclick="importbook()" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-remove'">导入</a>		
+			<a id="import-book-btn" onclick="importbook()" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-remove'">上传</a>		
 		</div>
 		<div id="search-book" style="float:left">
 			<form id="search-book-form" method="post">
