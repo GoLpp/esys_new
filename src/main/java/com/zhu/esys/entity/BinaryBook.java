@@ -56,21 +56,25 @@ public class BinaryBook {
 	@JsonIgnore
 	@OneToMany(mappedBy="binaryBook")
 	private List<LendRcord> lendRcords;
+	
+	@Column(length=50)
+	private String publish;
 
 	public BinaryBook() {
 	}
 
-	public BinaryBook(String id, String bookName, String author, Date publishTime, String url, Integer count,
-			String statu, List<LendRcord> lendRcords) {
-		super();
+	public BinaryBook(String id, String bookName, String author, String descrip, Date publishTime, String url,
+			Integer count, String statu, List<LendRcord> lendRcords, String publish) {
 		this.id = id;
 		this.bookName = bookName;
 		this.author = author;
+		this.descrip = descrip;
 		this.publishTime = publishTime;
 		this.url = url;
 		this.count = count;
 		this.statu = statu;
 		this.lendRcords = lendRcords;
+		this.publish = publish;
 	}
 
 	public String getId() {
@@ -95,6 +99,14 @@ public class BinaryBook {
 
 	public void setAuthor(String author) {
 		this.author = author;
+	}
+
+	public String getDescrip() {
+		return descrip;
+	}
+
+	public void setDescrip(String descrip) {
+		this.descrip = descrip;
 	}
 
 	public Date getPublishTime() {
@@ -137,18 +149,18 @@ public class BinaryBook {
 		this.lendRcords = lendRcords;
 	}
 
-	public String getDescrip() {
-		return descrip;
+	public String getPublish() {
+		return publish;
 	}
 
-	public void setDescrip(String descrip) {
-		this.descrip = descrip;
+	public void setPublish(String publish) {
+		this.publish = publish;
 	}
 
 	@Override
 	public String toString() {
 		return "BinaryBook [id=" + id + ", bookName=" + bookName + ", author=" + author + ", descrip=" + descrip
 				+ ", publishTime=" + publishTime + ", url=" + url + ", count=" + count + ", statu=" + statu
-				+ ", lendRcords=" + lendRcords + "]";
-	}	
+				+ ", lendRcords=" + lendRcords + ", publish=" + publish + "]";
+	}
 }

@@ -50,7 +50,7 @@ public class Article {
 	
 	@OneToMany(mappedBy="article")
 	private List<Discuss> discusses;
-
+	
 	public Article() {
 	}
 
