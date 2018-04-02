@@ -51,4 +51,10 @@ public class BinaryBookController {
 		bookService.update(dto);
 		return WoResultCode.getSuccessCode();
 	}
+	
+	@RequestMapping(value="/delete")
+	public WoResultCode delete(BinaryBookDto dto) {
+		bookService.delete(dto);
+		return WoResultCode.getSuccessCode();
+	}
 }

@@ -51,4 +51,14 @@ public class BinaryBookServiceImpl implements BinaryBookService{
 		book.setId(dto.getId());
 		bookDao.update(book);
 	}
+
+	@Override
+	public void delete(BinaryBookDto dto) {
+		String[] ids = dto.getBookIds().split(",");
+		for(String id : ids) {
+			BinaryBook book = new BinaryBook();
+			book.setId(id);
+			bookDao.delete(book);
+		}
+	}	
 }

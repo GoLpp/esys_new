@@ -39,6 +39,8 @@ public class BinaryBookDto {
 	private String statu = "1";
 	
 	private String publish = "";
+	
+	private String bookIds = "";
 
 	public BinaryBookDto() {
 	}
@@ -146,6 +148,14 @@ public class BinaryBookDto {
 
 	public void setPublish(String publish) {
 		this.publish = publish;
+	}
+
+	public String getBookIds() {
+		return bookIds;
+	}
+
+	public void setBookIds(String bookIds) {
+		this.bookIds = bookIds;
 	}
 
 	@Override

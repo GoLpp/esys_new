@@ -1,19 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <div>
-	<table id="dg-book" class="easyui-datagrid" style="width:600px;height:300px"
+	<table id="dg-book" class="easyui-datagrid" style="width:800px;height:400px"
         data-options="url:'sys/binarybook/list',fitColumns:true,
         singleSelect:false,toolbar:'#book-bar', pagination:true, rownumbers:true">
     	<thead>
         	<tr>
-            	<th data-options="field:'id',width:100">图书编号</th>
-            	<th data-options="field:'author',width:100">作者</th>
-            	<th data-options="field:'bookName',width:100">书名</th>
-            	<th data-options="field:'descrip', width:100">简介</th>
-            	<th data-options="field:'publishTime',width:100">出版时间</th>
-            	<th data-options="field:'publish',width:100">出版社</th>
-            	<th data-options="field:'statu',width:100">状态</th>
-               	<th data-options="field:'count',width:100">借阅次数</th>         		
+            	<th data-options="field:'id',width:150">图书编号</th>
+            	<th data-options="field:'author',width:150">作者</th>
+            	<th data-options="field:'bookName',width:150">书名</th>
+            	<th data-options="field:'descrip', width:150">简介</th>
+            	<th data-options="field:'publishTime',width:150">出版时间</th>
+            	<th data-options="field:'publish',width:150">出版社</th>
+            	<th data-options="field:'statu',width:150">状态</th>
+               	<th data-options="field:'count',width:150">借阅次数</th>         		
         	</tr>
     	</thead>
 	</table>
@@ -29,7 +29,7 @@
 			<a id="delete-book-btn" onclick="deletebook()" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-remove'">删除</a>		
 		</div>
 		<div id="import-book" style="float:left">
-			<a id="import-book-btn" onclick="importbook()" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-remove'">上传</a>		
+			<a id="import-book-btn" onclick="importbook()" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add'">上传</a>		
 		</div>
 		<div id="search-book" style="float:left">
 			<form id="search-book-form" method="post">
@@ -247,12 +247,11 @@
 		for(var i=0; i < row.length; i++) {
 			str=row[i].id+','+str;
 		}
-		console.log(row);
 		if (row.length != 0) {
 			$.messager.confirm('请确认', '您确定要删除选中的用户吗？', function(r) {
 				// r为true表示点击了确定按钮，否则表示点击了取消按钮
 				if (r) {
-					$.post('sys/book/delete', {bookIds : str}, function(result) {
+					$.post('sys/binarybook/delete', {bookIds : str}, function(result) {
 						if (result.success) {
 							$('#dg-book').datagrid('reload'); // reload grid data
 						} else {

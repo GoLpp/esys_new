@@ -12,4 +12,6 @@ public interface BinaryBookService {
 
 	void update(BinaryBookDto dto);
 
+	void delete(BinaryBookDto dto);
+
 }
