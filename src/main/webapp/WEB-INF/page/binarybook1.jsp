@@ -2,7 +2,7 @@
          pageEncoding="UTF-8" %>
 <div>
 	<table id="dg-book" class="easyui-datagrid" style="width:600px;height:300px"
-        data-options="url:'sys/book/pageList',fitColumns:true,
+        data-options="url:'sys/binarybook/list',fitColumns:true,
         singleSelect:false,toolbar:'#book-bar', pagination:true, rownumbers:true">
     	<thead>
         	<tr>
@@ -41,7 +41,7 @@
 	<!-- 创建框  -->
 	<div id="create-dialog" class="easyui-dialog" title="添加书籍" style="width:400px;height:350px; padding: 10px 20px"
         data-options="iconCls:'icon-save',resizable:true,modal:true,closed:true,buttons:'#create-dialog-btn'">
-		<form id="create-book-form" method="post">
+		<form id="create-book-form" method="post" enctype="multipart/form-data">
 			<div class="ftitle">请输入图书信息：</div>
     		<div class="fitem">
         		<label for="bookName">图书名:</label>
@@ -62,12 +62,7 @@
    			
     		<div class="fitem">
         		<label for="publishTime">出版时间:</label>
-       			<input class="easyui-textbox" type="text" name="publishTime" data-options="" />
-   			</div>
-    		<div class="fitem">
-        		<label for="statu">状态:</label>
-       			<input class="easyui-textbox" type="text" name="statu" data-options="required:true" />
-   			</div>   			   			
+				<input id="dd1" type="text" name="publishTime" class="easyui-datebox" required="required">   			</div>
    			<div class="fitem">
    				<label for="url">上传书籍:</label>			
 				<input class="easyui-filebox" name="upBook" style="width:300px" data-options="buttonText:'选择文件'">        	
@@ -89,6 +84,11 @@
         data-options="iconCls:'icon-save',resizable:true,modal:true,closed:true,buttons:'#update-dialog-btn'">
 		<form id="update-book-form" method="post">
 			<div class="ftitle">请输入更新信息：</div>
+			<div class="fitem">
+        		<label for="id">编号:</label>
+       			<input class="easyui-textbox" type="text" name="id" data-options="required:true" readonly="true"/>
+   			</div>
+			
     		<div class="fitem">
         		<label for="bookName">图书名:</label>
        			<input class="easyui-textbox" type="text" name="bookName" data-options="required:true" />
@@ -108,16 +108,8 @@
    			
     		<div class="fitem">
         		<label for="publishTime">出版时间:</label>
-       			<input class="easyui-textbox" type="text" name="publishTime" data-options="" />
+				<input id="dd" type="text" name="publishTime" class="easyui-datebox" required="required">   			</div>
    			</div>
-    		<div class="fitem">
-        		<label for="statu">状态:</label>
-       			<input class="easyui-textbox" type="text" name="statu" data-options="required:true" />
-   			</div>   			   			
-   			<div class="fitem">
-   				<label for="url">上传书籍:</label>			
-				<input class="easyui-filebox" name="upBook" style="width:250px" data-options="buttonText:'选择文件'">        	
-			</div>
    		</form>
 	</div>
 	
@@ -157,6 +149,20 @@
 </div>
 
 <script type="text/javascript">
+
+	$('#dg-book').datagrid({
+		onBeforeLoad: function(param) {
+			var title = $('#search-book-form').serializeArray();
+			$.each(title,function() {
+				console.log(this.value);
+				if(this.value != '' && this.value != undefined) {
+					param[this.name] = this.value;
+				}
+			});
+			return true;
+		}
+	});
+
 	function createbook() {
 		$('#create-dialog').dialog('open');
 		$('#create-book-form').form('clear');
@@ -164,7 +170,7 @@
 	
 	function bookSave() {
 		$('#create-book-form').form('submit', {
-			url: 'sys/book/create',
+			url: 'sys/binarybook/create',
 			onSubmit: function() {
 				return $(this).form("validate");
 			},
@@ -205,7 +211,7 @@
 		var row = $('#dg-book').datagrid('getSelections');
 		if(row.length = 1) {
 			$('#update-book-form').form('submit',{
-				url: 'sys/book/update',
+				url: 'sys/binarybook/update',
 				onSubmit: function() {
 					$(this).form('validate');
 				},
