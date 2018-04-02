@@ -24,6 +24,8 @@ public class RoleDto {
     private String menuIds = "";
 
     private String menuNames = "";
+    
+    private String typeName = "";
 
     public RoleDto () {}
     
@@ -51,7 +53,7 @@ public class RoleDto {
     	r.setId(id);
     	r.setDescription(description);
     	r.setName(name);
-    	r.setType(type);
+    	r.setType(typeName);
     	return r;
     }
     
@@ -118,6 +120,14 @@ public class RoleDto {
 		this.menuIds = menuIds;
 	}
 	
+	public String getTypeName() {
+		return typeName;
+	}
+
+	public void setTypeName(String typeName) {
+		this.typeName = typeName;
+	}
+
 	public static WoPage<RoleDto> getGridData(List<Role> pu, Long total) {
         List<RoleDto> rs = new ArrayList<RoleDto>();
         for (Role r : pu) {
