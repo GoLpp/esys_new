@@ -8,7 +8,7 @@
         	<tr>
             	<th data-options="field:'id',width:150">图书编号</th>
             	<th data-options="field:'author',width:150">作者</th>
-            	<th data-options="field:'allbookName',width:150">书名</th>
+            	<th data-options="field:'bookName',width:150">书名</th>
             	<th data-options="field:'descrip', width:150">简介</th>
             	<th data-options="field:'publishTime',width:150">出版时间</th>
             	<th data-options="field:'publish',width:150">出版社</th>
@@ -41,7 +41,6 @@
 		onBeforeLoad: function(param) {
 			var title = $('#search-allbook-form').serializeArray();
 			$.each(title,function() {
-				console.log(this.value);
 				if(this.value != '' && this.value != undefined) {
 					param[this.name] = this.value;
 				}
@@ -62,7 +61,7 @@
 				if (r) {
 					$.post('sys/binarybook/lendbook', {bookIds : str}, function(result) {
 						if (result.success) {
-							$('#dg-book').datagrid('reload'); // reload grid data
+							$('#dg-allbook').datagrid('reload'); // reload grid data
 						} else {
 							$.messager.alert({ // show error message
 								title : '错误',

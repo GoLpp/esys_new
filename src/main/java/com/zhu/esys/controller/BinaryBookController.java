@@ -1,6 +1,7 @@
 package com.zhu.esys.controller;
 import java.io.File;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -8,15 +9,19 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.zhu.common.entity.WoResultCode;
 import com.zhu.common.util.WoUtil;
+import com.zhu.esys.ESysException;
 import com.zhu.esys.dto.BinaryBookDto;
 import com.zhu.esys.service.BinaryBookService;
+import com.zhu.esys.util.ESysConstant;
 import com.zhu.esys.vo.GridEuiVo;
 @RestController
 @RequestMapping(value="sys/binarybook/")
+@SessionAttributes(names=ESysConstant.SESSION_USER)
 public class BinaryBookController {
 	private final static Logger LOG = LogManager.getLogger(BinaryBookController.class);
 	
@@ -55,6 +60,16 @@ public class BinaryBookController {
 	@RequestMapping(value="/delete")
 	public WoResultCode delete(BinaryBookDto dto) {
 		bookService.delete(dto);
+		return WoResultCode.getSuccessCode();
+	}
+	
+	@RequestMapping(value="/lendbook")
+	public WoResultCode lendBook(BinaryBookDto dto, Map<String, Object> map) {
+		try{
+			bookService.lendBook(dto, map);
+		}catch (ESysException e) {
+			return e.getCode();
+		}
 		return WoResultCode.getSuccessCode();
 	}
 }
