@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <div>
-	<table id="dg-book" class="easyui-datagrid" style="width:800px;height:400px"
+	<table id="dg-book" class="easyui-datagrid" style="width:1100px;height:600px"
         data-options="url:'sys/binarybook/list',fitColumns:true,
         singleSelect:false,toolbar:'#book-bar', pagination:true, rownumbers:true">
     	<thead>

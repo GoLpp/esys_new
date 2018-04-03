@@ -1,23 +1,23 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <div>
-	<table id="dg-lendrecord" class="easyui-datagrid" style="width:600px;height:300px"
+	<table id="dg-uulendrecord" class="easyui-datagrid" style="width:1100px;height:600px"
         data-options="url:'sys/lendrecord/list',fitColumns:true,
-        singleSelect:false,toolbar:'#lendrecord-bar', pagination:true, rownumbers:true">
+        singleSelect:false,toolbar:'#ulendrecord-bar', pagination:true, rownumbers:true">
     	<thead>
         	<tr>
-            	<th data-options="field:'id',width:150">编号</th>
-            	<th data-options="field:'bookName',width:150">图书</th>
-            	<th data-options="field:'lendTime',width:150">借出时间</th>
-            	<th data-options="field:'returnTime', width:150">归还时间</th>
-            	<th data-options="field:'userName',width:150">借用人</th>
-            	<th data-options="field:'statu',width:150">状态</th>
+            	<th data-options="field:'id',width:180">编号</th>
+            	<th data-options="field:'bookName',width:180">图书</th>
+            	<th data-options="field:'lendTime',width:180">借出时间</th>
+            	<th data-options="field:'returnTime', width:180">归还时间</th>
+            	<th data-options="field:'userName',width:180">借用人</th>
+            	<th data-options="field:'statu',width:180">状态</th>
         	</tr>
     	</thead>
 	</table>
 	
-	<div id="lendrecord-bar" style="float:left">
-		<a id="search-lendrecord-btn" onclick="searchLendRecord()" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'">借阅记录</a>
+	<div id="ulendrecord-bar" style="float:left">
+		<a id="search-ulendrecord-btn" onclick="searchulendrecord()" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'">借阅记录</a>
 		<a id="search-returnrecord-btn" onclick="searchReturnRecord()" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'">归还记录</a>
 		<a id="search-noreturnrecord-btn" onclick="searchNoReturnRecord()" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'">未归还记录</a>
 		<a id="search-noreturnrecord-btn" onclick="returnBook()" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-remove'">还书</a>									
@@ -25,14 +25,14 @@
 </div>
 
 <script type="text/javascript">
-	function createlendrecord() {
+	function createulendrecord() {
 		$('#create-dialog').dialog('open');
-		$('#create-lendrecord-form').form('clear');
+		$('#create-ulendrecord-form').form('clear');
 	}
 	
-	function lendrecordSave() {
-		$('#create-lendrecord-form').form('submit', {
-			url: 'sys/lendrecord/create',
+	function ulendrecordSave() {
+		$('#create-ulendrecord-form').form('submit', {
+			url: 'sys/ulendrecord/create',
 			onSubmit: function() {
 				return $(this).form("validate");
 			},
@@ -45,21 +45,21 @@
 					});
 				}else{
 					$('#create-dialog').dialog('close');
-					$('#dg-lendrecord').datagrid('reload');
+					$('#dg-ulendrecord').datagrid('reload');
 				}
 			}
 		});
 	}
 	
-	function lendrecordCancel() {
+	function ulendrecordCancel() {
 		$('#create-dialog').dialog('close');
 	}
 	
-	function updatelendrecord() {
-		var row = $('#dg-lendrecord').datagrid('getSelected');
+	function updateulendrecord() {
+		var row = $('#dg-ulendrecord').datagrid('getSelected');
 		if(row) {
-			$('#update-lendrecord-dialog').dialog('open');
-			$('#update-lendrecord-form').form('load', row);
+			$('#update-ulendrecord-dialog').dialog('open');
+			$('#update-ulendrecord-form').form('load', row);
 		}else{
 			$.messager.alert({
 				icon : 'warning',
@@ -70,10 +70,10 @@
 	}
 	
 	function saveUpdate() {
-		var row = $('#dg-lendrecord').datagrid('getSelections');
+		var row = $('#dg-ulendrecord').datagrid('getSelections');
 		if(row.length = 1) {
-			$('#update-lendrecord-form').form('submit',{
-				url: 'sys/lendrecord/update',
+			$('#update-ulendrecord-form').form('submit',{
+				url: 'sys/ulendrecord/update',
 				onSubmit: function() {
 					$(this).form('validate');
 				},
@@ -85,8 +85,8 @@
 							msg: result.msg
 						});
 					}else{
-						$('#update-lendrecord-dialog').dialog('close');
-						$('#dg-lendrecord').datagrid('reload');
+						$('#update-ulendrecord-dialog').dialog('close');
+						$('#dg-ulendrecord').datagrid('reload');
 					}
 				}
 			});
@@ -99,12 +99,12 @@
 		}
 	}
 	
-	function updatelendrecordCancel() {
+	function updateulendrecordCancel() {
 		$('#update-dialog').dialog('close');
 	}
 	
-	function deletelendrecord() {
-		var row = $('#dg-lendrecord').datagrid('getSelections');
+	function deleteulendrecord() {
+		var row = $('#dg-ulendrecord').datagrid('getSelections');
 		var str = '';
 		for(var i=0; i < row.length; i++) {
 			str=row[i].id+','+str;
@@ -114,9 +114,9 @@
 			$.messager.confirm('请确认', '您确定要删除选中的用户吗？', function(r) {
 				// r为true表示点击了确定按钮，否则表示点击了取消按钮
 				if (r) {
-					$.post('sys/lendrecord/delete', {lendrecordIds : str}, function(result) {
+					$.post('sys/ulendrecord/delete', {ulendrecordIds : str}, function(result) {
 						if (result.success) {
-							$('#dg-lendrecord').datagrid('reload'); // reload grid data
+							$('#dg-ulendrecord').datagrid('reload'); // reload grid data
 						} else {
 							$.messager.alert({ // show error message
 								title : '错误',
@@ -152,27 +152,27 @@
 	    }  
 	});
 	
-	function importlendrecord() {
-		$('#import-lendrecord-dialog').dialog('open');
+	function importulendrecord() {
+		$('#import-ulendrecord-dialog').dialog('open');
 	}
 	
 	//下载模板
 	function importDown() {
 		$('#form').form('submit',{
-			url: 'sys/lendrecord/importDown',
+			url: 'sys/ulendrecord/importDown',
 			onSubmit: function() {
 				$(this).form('validate');
 			},
 			susccess: function(result) {
-				$('#import-lendrecord-dialog').dialog('close');
+				$('#import-ulendrecord-dialog').dialog('close');
 			}
 		});
 	}
 	
 	//导入Excel
 	function saveImport() {
-		$('#import-lendrecord-form').form('submit', {
-			url: 'sys/lendrecord/importExcel',
+		$('#import-ulendrecord-form').form('submit', {
+			url: 'sys/ulendrecord/importExcel',
 			onSubmit: function() {
 				$(this).form('validate');
 			},
@@ -188,7 +188,7 @@
 						title: '提示',
 						msg: '导入成功'
 					});
-					$('import-lendrecord-dialog').dialog('close');
+					$('import-ulendrecord-dialog').dialog('close');
 				}
 			}
 		});
