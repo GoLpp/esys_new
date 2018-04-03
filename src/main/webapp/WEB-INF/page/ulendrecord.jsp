@@ -19,7 +19,8 @@
 	<div id="lendrecord-bar" style="float:left">
 		<a id="search-lendrecord-btn" onclick="searchLendRecord()" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'">借阅记录</a>
 		<a id="search-returnrecord-btn" onclick="searchReturnRecord()" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'">归还记录</a>
-		<a id="search-noreturnrecord-btn" onclick="searchNoReturnRecord()" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'">未归还记录</a>				
+		<a id="search-noreturnrecord-btn" onclick="searchNoReturnRecord()" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'">未归还记录</a>
+		<a id="search-noreturnrecord-btn" onclick="returnBook()" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-remove'">还书</a>									
 	</div>
 </div>
 

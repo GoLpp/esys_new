@@ -255,6 +255,16 @@ public class UserDto implements Serializable {
         return false;
     }
     
+    public boolean isAdminAndBookAdmin() {
+    	String bookManager = "8a873ab762853e6001628554ac0a0000";
+    	for(String rString : this.getRoleIdArray()) {
+    		if("admin".equals(rString) || bookManager.equals(rString)) {
+    			return true;
+    		}
+    	}
+    	return false;
+    }
+    
     /**
      * @return
      */
