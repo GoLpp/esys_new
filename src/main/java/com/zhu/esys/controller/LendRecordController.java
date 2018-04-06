@@ -29,4 +29,16 @@ public class LendRecordController {
 		List<LendRcordDto> dtos = service.findAll(searchContent,(page-1)*rows, rows, map);
 		return new GridEuiVo<>(Long.valueOf(dtos.size()), dtos);
 	}
+	
+	@RequestMapping(value="/returnlist")
+	public GridEuiVo<LendRcordDto> findReturn(Long page, Long rows, Map<String, Object> map) {
+		List<LendRcordDto> dtos = service.findReturn((page-1)*rows, rows, map);
+		return new GridEuiVo<>(Long.valueOf(dtos.size()), dtos);	
+	}
+	
+	@RequestMapping(value="/noreturn")
+	public GridEuiVo<LendRcordDto> findNoReturn(Long page, Long rows, Map<String, Object> map) {
+		List<LendRcordDto> dtos = service.findNoReturn((page-1)*rows, rows, map);
+		return new GridEuiVo<>(Long.valueOf(dtos.size()), dtos);
+	}
 }

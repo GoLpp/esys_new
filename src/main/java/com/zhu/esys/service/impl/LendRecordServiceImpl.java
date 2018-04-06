@@ -38,4 +38,38 @@ public class LendRecordServiceImpl implements LendRecordService{
 		LendRcordDto dto = new LendRcordDto();
 		return dto.gotDtos(records.getRows());
 	}
+
+	@Override
+	public List<LendRcordDto> findReturn(Long page, Long rows, Map<String, Object> map) {
+		UserDto userDto = (UserDto)map.get(ESysConstant.SESSION_USER);
+		String whereOrderBy = "";
+		Map<String, Object> props = new HashMap<>();
+		whereOrderBy = whereOrderBy + "where e.statu = :statu";
+		props.put("statu", "1");
+		if(!userDto.isAdminAndBookAdmin()) {
+			whereOrderBy = whereOrderBy + " and e.user.id = :userId";
+			props.put("userId", userDto.getId());
+		}
+		WoPage<LendRcord> records = recordDao.findAllBy(whereOrderBy, page, rows, props);
+		LendRcordDto dto = new LendRcordDto();
+		return dto.gotDtos(records.getRows());
+	}
+
+	@Override
+	public List<LendRcordDto> findNoReturn(Long page, Long rows, Map<String, Object> map) {
+		UserDto userDto = (UserDto)map.get(ESysConstant.SESSION_USER);
+		String whereOrderBy = "";
+		Map<String, Object> props = new HashMap<>();
+		whereOrderBy = whereOrderBy + "where e.statu = :statu";
+		props.put("statu", "0");
+		if(!userDto.isAdminAndBookAdmin()) {
+			whereOrderBy = whereOrderBy + " and e.user.id = :userId";
+			props.put("userId", userDto.getId());
+		}
+		WoPage<LendRcord> records = recordDao.findAllBy(whereOrderBy, page, rows, props);
+		LendRcordDto dto = new LendRcordDto();
+		return dto.gotDtos(records.getRows());
+	}
+	
+	
 }

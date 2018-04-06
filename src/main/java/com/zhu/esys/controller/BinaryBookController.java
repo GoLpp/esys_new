@@ -72,4 +72,9 @@ public class BinaryBookController {
 		}
 		return WoResultCode.getSuccessCode();
 	}
+	
+	@RequestMapping(value="/importDown")
+	public WoResultCode modelDown() {
+		return WoResultCode.getSuccessCode();
+	}
 }

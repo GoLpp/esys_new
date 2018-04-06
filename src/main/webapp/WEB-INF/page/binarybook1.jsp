@@ -29,7 +29,7 @@
 			<a id="delete-book-btn" onclick="deletebook()" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-remove'">删除</a>		
 		</div>
 		<div id="import-book" style="float:left">
-			<a id="import-book-btn" onclick="importbook()" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add'">上传</a>		
+			<a id="import-book-btn" onclick="importbook()" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add'">导入图书</a>		
 		</div>
 		<div id="search-book" style="float:left">
 			<form id="search-book-form" method="post">
@@ -39,7 +39,7 @@
 	</div>
 	
 	<!-- 创建框  -->
-	<div id="create-dialog" class="easyui-dialog" title="添加书籍" style="width:400px;height:350px; padding: 10px 20px"
+	<div id="create-dialog1" class="easyui-dialog" title="添加书籍" style="width:400px;height:350px; padding: 10px 20px"
         data-options="iconCls:'icon-save',resizable:true,modal:true,closed:true,buttons:'#create-dialog-btn'">
 		<form id="create-book-form" method="post" enctype="multipart/form-data">
 			<div class="ftitle">请输入图书信息：</div>
@@ -164,7 +164,7 @@
 	});
 
 	function createbook() {
-		$('#create-dialog').dialog('open');
+		$('#create-dialog1').dialog('open');
 		$('#create-book-form').form('clear');
 	}
 	
