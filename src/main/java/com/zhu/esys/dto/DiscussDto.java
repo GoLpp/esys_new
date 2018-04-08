@@ -22,7 +22,11 @@ public class DiscussDto {
 	private String userName;
 	
 	private String articleName;
-
+	
+	private String userId;
+	
+	private String articleId;
+	
 	public DiscussDto() {
 	}
 	
@@ -102,13 +106,29 @@ public class DiscussDto {
 		this.articleName = articleName;
 	}
 	
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
+	public String getArticleId() {
+		return articleId;
+	}
+
+	public void setArticleId(String articleId) {
+		this.articleId = articleId;
+	}
+
 	@Override
 	public String toString() {
 		return "DiscussDto [id=" + id + ", content=" + content + ", createTime=" + createTime + ", user=" + user
 				+ ", article=" + article + ", userName=" + userName + ", articleName=" + articleName + "]";
 	}
 
-	public Discuss createEntity(DiscussDto dto) {
+	public Discuss createEntity() {
 		Discuss discuss = new Discuss();
 		discuss.setContent(content);
 		discuss.setCreateTime(new Date());

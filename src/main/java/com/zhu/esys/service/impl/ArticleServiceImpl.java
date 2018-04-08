@@ -79,6 +79,4 @@ public class ArticleServiceImpl implements ArticleService{
 		ArticleDto dto = new ArticleDto();
 		return dto.gotDtos(articles.getRows());
 	}
-	
-	
 }
