@@ -1,6 +1,8 @@
 package com.zhu.esys.dto;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.zhu.common.util.WoConstant;
@@ -59,7 +61,7 @@ public class DiscussDto {
 		this.content = content;
 	}
 	
-    @JsonFormat(pattern = WoConstant.FORMAT_DATETIME, locale = "zh", timezone = "GMT+8")
+    @JsonFormat(pattern = WoConstant.FORMAT_DATE, locale = "zh", timezone = "GMT+8")
 	public Date getCreateTime() {
 		return createTime;
 	}
@@ -99,10 +101,26 @@ public class DiscussDto {
 	public void setArticleName(String articleName) {
 		this.articleName = articleName;
 	}
-
+	
 	@Override
 	public String toString() {
 		return "DiscussDto [id=" + id + ", content=" + content + ", createTime=" + createTime + ", user=" + user
 				+ ", article=" + article + ", userName=" + userName + ", articleName=" + articleName + "]";
+	}
+
+	public Discuss createEntity(DiscussDto dto) {
+		Discuss discuss = new Discuss();
+		discuss.setContent(content);
+		discuss.setCreateTime(new Date());
+		return discuss;
+	}
+	
+	public List<DiscussDto> gotDtos(List<Discuss> discusses) {
+		List<DiscussDto> dtos = new ArrayList<>();
+		for(Discuss discuss : discusses) {
+			DiscussDto dto = new DiscussDto(discuss);
+			dtos.add(dto);
+		}
+		return dtos;
 	}
 }

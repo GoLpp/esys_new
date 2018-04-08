@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -15,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.zhu.common.entity.WoResultCode;
 import com.zhu.common.util.WoUtil;
 import com.zhu.esys.ESysException;
+import com.zhu.esys.dto.ArticleDto;
 import com.zhu.esys.dto.BinaryBookDto;
 import com.zhu.esys.service.BinaryBookService;
 import com.zhu.esys.util.ESysConstant;
@@ -76,5 +78,11 @@ public class BinaryBookController {
 	@RequestMapping(value="/importDown")
 	public WoResultCode modelDown() {
 		return WoResultCode.getSuccessCode();
+	}
+	
+	@RequestMapping(value="/tjlist")
+	public GridEuiVo<BinaryBookDto> tjBook() {
+		List<BinaryBookDto> dtos = bookService.tjBook();
+		return new GridEuiVo<>(Long.valueOf(dtos.size()), dtos);
 	}
 }

@@ -45,16 +45,16 @@ public class BinaryBookServiceImpl implements BinaryBookService{
 
 	@Override
 	public List<BinaryBookDto> findAll(String searchContent, Integer page, Integer rows) {
-		String whereOrderBy = "";
+		String whereOrderBy = "1=1";
 		Map<String, Object> props = new HashMap<>();
 		BinaryBookDto dto = new BinaryBookDto();
 		if(!WoUtil.isEmpty(searchContent)) {
-			whereOrderBy = whereOrderBy + "e.bookName like :searchContent or e.author like :searchContent"
-					+ " or e.publish like :searchContent";
-			props.put("searchContent", "%" + searchContent + "%");
+			whereOrderBy = whereOrderBy + " and (e.bookName like :searchContent or e.author like :searchContent"
+					+ " or e.publish like :searchContent)";
+			props.put("searchContent", '%' + searchContent + '%');
 			
 		}
-		whereOrderBy = whereOrderBy + "where e.statu = :statu";
+		whereOrderBy = whereOrderBy + " and e.statu = :statu";
 		props.put("statu", "1");
 		WoPage<BinaryBook> books = bookDao.findAllBy(whereOrderBy, Long.valueOf(page), Long.valueOf(rows), props);
 		return dto.dtos(books.getRows());
@@ -88,7 +88,7 @@ public class BinaryBookServiceImpl implements BinaryBookService{
 			BinaryBook book = bookDao.findById(id);
 			LendRcord record = new LendRcord();
 			book.setStatu("0");
-			book.setCount(book.getCount()+1);
+			book.setCounts(book.getCounts()+1);
 			record.setUser(u);
 			record.setStatu("0");
 			record.setBinaryBook(book);
@@ -119,5 +119,10 @@ public class BinaryBookServiceImpl implements BinaryBookService{
 		if(count > 5) {
 			throw new ESysException(new WoResultCode(132, "借书不能超过五本，请归还多余书籍"), "借书不能超过五本，请归还多余书籍");
 		}
+	}
+
+	@Override
+	public List<BinaryBookDto> tjBook() {
+		return null;
 	}
 }

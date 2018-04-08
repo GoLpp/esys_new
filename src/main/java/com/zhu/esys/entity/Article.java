@@ -42,7 +42,7 @@ public class Article {
 	private Date createTime;
 	
 	@Column(length=50)
-	private Integer count;
+	private Integer counts;
 	
 	@ManyToOne
 	@JoinColumn(name="user_id")
@@ -54,14 +54,14 @@ public class Article {
 	public Article() {
 	}
 
-	public Article(String id, String title, String content, Date createTime, Integer count, User user,
+	public Article(String id, String title, String content, Date createTime, Integer counts, User user,
 			List<Discuss> discusses) {
 		super();
 		this.id = id;
 		this.title = title;
 		this.content = content;
 		this.createTime = createTime;
-		this.count = count;
+		this.counts = counts;
 		this.user = user;
 		this.discusses = discusses;
 	}
@@ -98,12 +98,12 @@ public class Article {
 		this.createTime = createTime;
 	}
 
-	public Integer getCount() {
-		return count;
+	public Integer getCounts() {
+		return counts;
 	}
 
-	public void setCount(Integer count) {
-		this.count = count;
+	public void setCounts(Integer counts) {
+		this.counts = counts;
 	}
 
 	public User getUser() {
@@ -125,6 +125,6 @@ public class Article {
 	@Override
 	public String toString() {
 		return "Article [id=" + id + ", title=" + title + ", content=" + content + ", createTime=" + createTime
-				+ ", count=" + count + ", user=" + user + ", discusses=" + discusses + "]";
+				+ ", counts=" + counts + ", user=" + user + ", discusses=" + discusses + "]";
 	}
 }

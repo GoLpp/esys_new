@@ -38,7 +38,7 @@ public class UserBook {
 	private Date upTime;
 	
 	@Column(length=20)
-	private Integer count;
+	private Integer counts;
 	
 	@Column(length=100)
 	private String url;
@@ -50,15 +50,17 @@ public class UserBook {
 	public UserBook() {
 	}
 
-	public UserBook(String id, String bookName, Date upTime, Integer count, String url, User user) {
+	public UserBook(String id, String bookName, Date upTime, Integer counts, String url, User user) {
 		super();
 		this.id = id;
 		this.bookName = bookName;
 		this.upTime = upTime;
-		this.count = count;
+		this.counts = counts;
 		this.url = url;
 		this.user = user;
 	}
+
+
 
 	public String getId() {
 		return id;
@@ -84,12 +86,12 @@ public class UserBook {
 		this.upTime = upTime;
 	}
 
-	public Integer getCount() {
-		return count;
+	public Integer getCounts() {
+		return counts;
 	}
 
-	public void setCount(Integer count) {
-		this.count = count;
+	public void setCounts(Integer counts) {
+		this.counts = counts;
 	}
 
 	public String getUrl() {
@@ -110,7 +112,7 @@ public class UserBook {
 
 	@Override
 	public String toString() {
-		return "UserBook [id=" + id + ", bookName=" + bookName + ", upTime=" + upTime + ", count=" + count + ", url="
+		return "UserBook [id=" + id + ", bookName=" + bookName + ", upTime=" + upTime + ", counts=" + counts + ", url="
 				+ url + ", user=" + user + "]";
 	}
 }

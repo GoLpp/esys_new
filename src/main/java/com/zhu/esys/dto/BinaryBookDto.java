@@ -65,7 +65,7 @@ public class BinaryBookDto {
 		this.descrip = book.getDescrip();
 		this.publishTime = book.getPublishTime();
 		this.url = book.getUrl();
-		this.count = book.getCount();
+		this.count = book.getCounts();
 		if(book.getStatu().equals("1")) {
 			this.statu = "未借出";
 		}else if(book.getStatu().equals("0")) {
@@ -174,7 +174,7 @@ public class BinaryBookDto {
 		book.setPublishTime(publishTime);
 		book.setStatu(statu);
 		book.setUrl(url);
-		book.setCount(count);
+		book.setCounts(count);
 		return book;
 	}
 	

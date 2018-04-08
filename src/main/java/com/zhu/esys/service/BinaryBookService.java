@@ -17,4 +17,6 @@ public interface BinaryBookService {
 
 	void lendBook(BinaryBookDto dto, Map<String, Object> map);
 
+	List<BinaryBookDto> tjBook();
+
 }

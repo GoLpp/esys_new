@@ -47,7 +47,7 @@ public class BinaryBook {
 	private String url;
 	
 	@Column(length=20)
-	private Integer count;
+	private Integer counts;
 	
 	@Column(length=2)
 	private String statu;
@@ -64,14 +64,15 @@ public class BinaryBook {
 	}
 
 	public BinaryBook(String id, String bookName, String author, String descrip, Date publishTime, String url,
-			Integer count, String statu, List<LendRcord> lendRcords, String publish) {
+			Integer counts, String statu, List<LendRcord> lendRcords, String publish) {
+		super();
 		this.id = id;
 		this.bookName = bookName;
 		this.author = author;
 		this.descrip = descrip;
 		this.publishTime = publishTime;
 		this.url = url;
-		this.count = count;
+		this.counts = counts;
 		this.statu = statu;
 		this.lendRcords = lendRcords;
 		this.publish = publish;
@@ -125,12 +126,12 @@ public class BinaryBook {
 		this.url = url;
 	}
 
-	public Integer getCount() {
-		return count;
+	public Integer getCounts() {
+		return counts;
 	}
 
-	public void setCount(Integer count) {
-		this.count = count;
+	public void setCounts(Integer counts) {
+		this.counts = counts;
 	}
 
 	public String getStatu() {
@@ -160,7 +161,7 @@ public class BinaryBook {
 	@Override
 	public String toString() {
 		return "BinaryBook [id=" + id + ", bookName=" + bookName + ", author=" + author + ", descrip=" + descrip
-				+ ", publishTime=" + publishTime + ", url=" + url + ", count=" + count + ", statu=" + statu
+				+ ", publishTime=" + publishTime + ", url=" + url + ", counts=" + counts + ", statu=" + statu
 				+ ", lendRcords=" + lendRcords + ", publish=" + publish + "]";
 	}
 }

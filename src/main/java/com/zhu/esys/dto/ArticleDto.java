@@ -36,7 +36,7 @@ public class ArticleDto {
 		this.content = article.getContent();
 		this.createTime = article.getCreateTime();
 		this.userName = article.getUser().getLoginName();
-		this.count = article.getCount();
+		this.count = article.getCounts();
 		if(null != article.getDiscusses()) {
 			for(Discuss discuss : article.getDiscusses()) {
 				DiscussDto dto = new DiscussDto(discuss);
@@ -127,5 +127,24 @@ public class ArticleDto {
 		return "ArticleDto [id=" + id + ", title=" + title + ", content=" + content + ", createTime=" + createTime
 				+ ", count=" + count + ", userName=" + userName + ", userDto=" + userDto + ", discusses=" + discusses
 				+ "]";
+	}
+	
+	public Article createEntity() {
+		Article article = new Article();
+		article.setContent(content);
+		article.setCounts(0);
+		article.setCreateTime(new Date());
+		article.setTitle(title);
+		article.setContent(content);
+		return article;
+	}
+	
+	public List<ArticleDto> gotDtos(List<Article> articles) {
+		List<ArticleDto> dtos = new ArrayList<>();
+		for(Article article : articles) {
+			ArticleDto dto = new ArticleDto(article);
+			dtos.add(dto);
+		}
+		return dtos;
 	}
 }

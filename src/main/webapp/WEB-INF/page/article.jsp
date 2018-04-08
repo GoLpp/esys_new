@@ -2,7 +2,7 @@
          pageEncoding="UTF-8" %>
 <div>
 	<table id="dg-article" class="easyui-datagrid" style="width:1100px;height:600px"
-        data-options="url:'sys/article/pageList',fitColumns:true,
+        data-options="url:'sys/article/list',fitColumns:true,
         singleSelect:false,toolbar:'#article-bar', pagination:true, rownumbers:true">
     	<thead>
         	<tr>
@@ -57,17 +57,18 @@
 	</div>
 	
 	<!-- 更新框 -->
-	<div id="update-article-dialog" class="easyui-dialog" title="更新文章" style="width:400px;height:350px; padding: 10px 20px"
+	<div id="update-article-dialog" class="easyui-dialog" title="更新文章" style="width:600px;height:600px; padding: 10px 20px"
         data-options="iconCls:'icon-save',resizable:true,modal:true,closed:true,buttons:'#update-dialog-btn'">
 		<form id="update-article-form" method="post">
 			<div class="ftitle">请输入更新信息：</div>
+			<input type="hidden" name="id"></input>
     		<div class="fitem">
         		<label for="title">标题:</label>
        			<input class="easyui-textbox" type="text" name="title" data-options="required:true" />
    			 </div>
     		<div class="fitem">
         		<label for="content">内容:</label>
-       			<input class="easyui-textbox" type="text" name="name" data-options="required:true" />
+       			<input class="easyui-textbox" type="text" name="content" data-options="required:true, multiline:true" style="width:400px; height:400px"/>
    			</div>
    		</form>
 	</div>
@@ -80,31 +81,6 @@
 			<a id="update-save-btn" onclick="saveUpdate()" class="easyui-linkbutton" data-options="iconCls:'icon-ok'">确定</a>
 		</div>		
 	</div>
-	
-	<!-- 导入按钮框 -->
-	<div id="import-article-dialog" class="easyui-dialog" title="导入书籍" style="width:400px;height:200px; padding: 10px 20px"
-        data-options="iconCls:'icon-save',resizable:true,modal:true,closed:true,buttons:'#import-dialog-btn'">
-		<form id="import-article-form" method="post" enctype="multipart/form-data">
-			<div class="ftitle">请选择书籍导入文件：</div>
-			<div class="fitem">
-        		<label for="file">文件:</label>
-				<input class="easyui-filebox" name="excelFile"  buttonText="选择文件"  style="width:260px">
-   			</div>
-		</form>
-	</div>
-	<div id="import-dialog-btn" style="float:right">
-		<div id="import-cancel" style="float:right">
-			<a id="import-cancel-btn" onclick="importarticleCancel()" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-cancel'">取消</a>
-		</div>
-		<form method="post" id="form">
-		<div id="import-down" style="float:right">
-			<a id="import-down-btn" onclick="importDown()" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add'">模板下载</a>
-		</div>
-		</form>
-		<div id="import-save" style="float:right">
-			<a id="import-save-btn" onclick="saveImport()" class="easyui-linkbutton" data-options="iconCls:'icon-ok'">确定</a>
-		</div>		
-	</div>
 </div>
 
 <script type="text/javascript">
@@ -115,7 +91,7 @@
 	
 	function articleSave() {
 		$('#create-article-form').form('submit', {
-			url: 'sys/article/create',
+			url: 'sys/article/save',
 			onSubmit: function() {
 				return $(this).form("validate");
 			},
@@ -276,4 +252,18 @@
 			}
 		});
 	}
+	
+	$('#dg-article').datagrid({
+		onBeforeLoad : function (param) {// onBeforeLoad在datagrid请求列表数据之前被调用，param是请求的参数对象
+			var t = $('#search-article-form').serializeArray();
+		
+	        $.each(t, function() {
+	        	if (this.value != '' && this.value != undefined) {
+	        		// 使用form中的name和value设置param属性值
+	        		param[this.name] = this.value;
+	        	}
+	        });
+	        return true;
+		}
+	});
 </script>
