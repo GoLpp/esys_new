@@ -81,8 +81,8 @@ public class BinaryBookController {
 	}
 	
 	@RequestMapping(value="/tjlist")
-	public GridEuiVo<BinaryBookDto> tjBook() {
-		List<BinaryBookDto> dtos = bookService.tjBook();
+	public GridEuiVo<BinaryBookDto> tjBook(Long page, Long rows) {
+		List<BinaryBookDto> dtos = bookService.tjBook((page-1)*rows, rows);
 		return new GridEuiVo<>(Long.valueOf(dtos.size()), dtos);
 	}
 }

@@ -8,7 +8,7 @@
         	<tr>
             	<th data-options="field:'id',width:100">图书编号</th>
             	<th data-options="field:'author',width:100">作者</th>
-            	<th data-options="field:'ubinarybookName',width:100">书名</th>
+            	<th data-options="field:'bookName',width:100">书名</th>
             	<th data-options="field:'descrip', width:100">简介</th>
             	<th data-options="field:'publishTime',width:100">出版时间</th>
             	<th data-options="field:'publish',width:100">出版社</th>
@@ -21,11 +21,6 @@
 	<div id="ubinarybook-bar" style="float:left">
 		<div id="down-ubinarybook" style="float:left">
 			<a id="down-ubinarybook-btn" onclick="deleteubinarybook()" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add'">下载图书</a>		
-		</div>
-		<div id="search-ubinarybook" style="float:left">
-			<form id="search-ubinarybook-form" method="post">
-				<input name="searchContent" class="easyui-textbox" data-options="iconCls:'icon-search'" style="width:100px"/>			
-			</form>
 		</div>
 	</div>	
 </div>
