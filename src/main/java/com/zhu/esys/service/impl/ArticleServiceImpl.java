@@ -79,4 +79,14 @@ public class ArticleServiceImpl implements ArticleService{
 		ArticleDto dto = new ArticleDto();
 		return dto.gotDtos(articles.getRows());
 	}
+
+	@Override
+	public void tuijian(String articleIds) {
+		for(String id : articleIds.split(",")) {
+			Article article = articleDao.findById(id);
+			article.setCounts(article.getCounts()+1);
+		}
+	}
+	
+	
 }

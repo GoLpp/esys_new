@@ -18,4 +18,6 @@ public interface ArticleService {
 
 	List<ArticleDto> findTj(Long page, Long rows);
 
+	void tuijian(String articleIds);
+
 }

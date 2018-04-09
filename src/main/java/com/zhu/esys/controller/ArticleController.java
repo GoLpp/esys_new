@@ -54,5 +54,11 @@ public class ArticleController {
 	public GridEuiVo<ArticleDto> tjList(Long page, Long rows) {
 		List<ArticleDto> articleDtos = service.findTj((page-1)*rows, rows);
 		return new GridEuiVo<>(Long.valueOf(articleDtos.size()), articleDtos);
+	} 
+	
+	@RequestMapping(value="/tuijian")
+	public WoResultCode tuijian(String articleIds) {
+		service.tuijian(articleIds);
+		return WoResultCode.getSuccessCode();
 	}
 }
