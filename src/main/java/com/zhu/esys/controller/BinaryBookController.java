@@ -18,6 +18,7 @@ import com.zhu.common.util.WoUtil;
 import com.zhu.esys.ESysException;
 import com.zhu.esys.dto.ArticleDto;
 import com.zhu.esys.dto.BinaryBookDto;
+import com.zhu.esys.dto.UserDto;
 import com.zhu.esys.service.BinaryBookService;
 import com.zhu.esys.util.ESysConstant;
 import com.zhu.esys.vo.GridEuiVo;
@@ -84,5 +85,12 @@ public class BinaryBookController {
 	public GridEuiVo<BinaryBookDto> tjBook(Long page, Long rows) {
 		List<BinaryBookDto> dtos = bookService.tjBook((page-1)*rows, rows);
 		return new GridEuiVo<>(Long.valueOf(dtos.size()), dtos);
+	}
+	
+	@RequestMapping(value="/return")
+	public WoResultCode returnBook(String bookIds, Map<String, Object> map) {
+		UserDto userDto = (UserDto) map.get(ESysConstant.SESSION_USER);
+		bookService.returnBook(bookIds, userDto);
+		return WoResultCode.getSuccessCode();
 	}
 }

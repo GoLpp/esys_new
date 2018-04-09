@@ -36,17 +36,20 @@ public class LendRcordDto {
 	private String userName;
 	
 	private	String bookName;
+	
+	private String bookId;
 
 	public LendRcordDto() {
 	}
 
-	public LendRcordDto(String id, Date lendTime, Date returnTime, String statu, String userName, String bookName) {
+	public LendRcordDto(String id, Date lendTime, Date returnTime, String statu, String userName, String bookName, String bookId) {
 		this.id = id;
 		this.lendTime = lendTime;
 		this.returnTime = returnTime;
 		this.statu = statu;
 		this.userName = userName;
 		this.bookName = bookName;
+		this.bookId = bookId;
 	}
 	
 	public LendRcordDto(LendRcord record) {
@@ -58,6 +61,7 @@ public class LendRcordDto {
 		}else{
 			this.statu = "未归还";
 		}
+		this.bookId = record.getBinaryBook().getId();
 		this.userName = record.getUser().getLoginName();
 		this.bookName = record.getBinaryBook().getBookName();
 	}
@@ -114,12 +118,20 @@ public class LendRcordDto {
 		this.bookName = bookName;
 	}
 
+	public String getBookId() {
+		return bookId;
+	}
+
+	public void setBookId(String bookId) {
+		this.bookId = bookId;
+	}
+
 	@Override
 	public String toString() {
 		return "LendRcordDto [id=" + id + ", lendTime=" + lendTime + ", returnTime=" + returnTime + ", statu=" + statu
-				+ ", userName=" + userName + ", bookName=" + bookName + "]";
+				+ ", userName=" + userName + ", bookName=" + bookName + ", bookId=" + bookId + "]";
 	}
-	
+
 	public List<LendRcordDto> gotDtos(List<LendRcord> records) {
 		List<LendRcordDto> dtos = new ArrayList<>();
 		for(LendRcord record : records) {

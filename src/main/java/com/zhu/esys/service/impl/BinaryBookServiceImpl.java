@@ -129,4 +129,25 @@ public class BinaryBookServiceImpl implements BinaryBookService{
 		BinaryBookDto bookDto = new BinaryBookDto();
 		return bookDto.dtos(books.getRows());
 	}
+
+	@Override
+	public void returnBook(String bookIds, UserDto userDto) {
+		String whereOrderBy = "";
+		String userId = userDto.getId();
+		Map<String, Object> props = new HashMap<>();
+		for(String id : bookIds.split(",")) {
+			BinaryBook book = bookDao.findById(id);
+			book.setStatu("1");
+			whereOrderBy = whereOrderBy + "where e.user.id = :userId and e.binaryBook.id = :bookId and e.returnTime is null";
+			props.put("userId", userId);
+			props.put("bookId", id);
+			List<LendRcord> records = lendRecordDao.findAllBy(whereOrderBy, props);
+			LendRcord lendRcord = records.get(0);
+			lendRcord.setStatu("1");
+			lendRcord.setReturnTime(new Date());
+			
+			bookDao.update(book);
+			lendRecordDao.update(lendRcord);
+		}
+	}
 }

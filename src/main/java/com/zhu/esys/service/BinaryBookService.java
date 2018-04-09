@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.zhu.esys.dto.BinaryBookDto;
+import com.zhu.esys.dto.UserDto;
 
 public interface BinaryBookService {
 
@@ -18,5 +19,7 @@ public interface BinaryBookService {
 	void lendBook(BinaryBookDto dto, Map<String, Object> map);
 
 	List<BinaryBookDto> tjBook(Long page, Long rows);
+
+	void returnBook(String bookIds, UserDto userDto);
 
 }
