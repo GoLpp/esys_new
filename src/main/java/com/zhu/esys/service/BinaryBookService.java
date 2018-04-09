@@ -1,5 +1,7 @@
 package com.zhu.esys.service;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
 
@@ -21,5 +23,7 @@ public interface BinaryBookService {
 	List<BinaryBookDto> tjBook(Long page, Long rows);
 
 	void returnBook(String bookIds, UserDto userDto);
+
+	void importExcel(InputStream in, String fileName) throws IOException;
 
 }

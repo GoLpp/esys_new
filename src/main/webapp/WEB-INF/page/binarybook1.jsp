@@ -296,11 +296,11 @@
 	//下载模板
 	function importDown() {
 		$('#form').form('submit',{
-			url: 'sys/book/importDown',
+			url: 'sys/binarybook/importDown',
 			onSubmit: function() {
-				$(this).form('validate');
+				return $(this).form('validate');
 			},
-			susccess: function(result) {
+			success: function(result) {
 				$('#import-book-dialog').dialog('close');
 			}
 		});
@@ -309,7 +309,7 @@
 	//导入Excel
 	function saveImport() {
 		$('#import-book-form').form('submit', {
-			url: 'sys/book/importExcel',
+			url: 'sys/binarybook/importExcel',
 			onSubmit: function() {
 				$(this).form('validate');
 			},
@@ -325,7 +325,8 @@
 						title: '提示',
 						msg: '导入成功'
 					});
-					$('import-book-dialog').dialog('close');
+					$('#import-book-dialog').dialog('close');
+					$('#dg-book').datagrid('reload');
 				}
 			}
 		});

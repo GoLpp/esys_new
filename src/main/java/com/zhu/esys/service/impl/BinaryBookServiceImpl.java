@@ -1,4 +1,8 @@
 package com.zhu.esys.service.impl;
+import java.io.IOException;
+import java.io.InputStream;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -8,6 +12,13 @@ import javax.annotation.Resource;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.hibernate.type.TrueFalseType;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -149,5 +160,45 @@ public class BinaryBookServiceImpl implements BinaryBookService{
 			bookDao.update(book);
 			lendRecordDao.update(lendRcord);
 		}
+	}
+
+	@Override
+	public void importExcel(InputStream in, String fileName) throws IOException {
+		Workbook workbook = null;
+		if(fileName.endsWith(".xls")) {
+			workbook = new HSSFWorkbook(in);
+		}else{
+			workbook = new XSSFWorkbook(in);
+		}
+		
+		createBook(workbook);
+	}
+
+	private void createBook(Workbook workbook) {
+		Sheet sheet = workbook.getSheet("书籍");
+		int num = sheet.getLastRowNum();
+		for(int i=1; i<num+1; i++) {
+			Row row = sheet.getRow(i);
+			BinaryBook book = new BinaryBook();
+			book.setBookName(getValue(row.getCell(0)));
+			book.setAuthor(getValue(row.getCell(1)));
+			book.setDescrip(getValue(row.getCell(2)));
+			book.setPublishTime(row.getCell(3).getDateCellValue());
+			book.setPublish(getValue(row.getCell(4)));
+			book.setCounts(0);
+			book.setStatu("1");
+			bookDao.create(book);
+		}
+	}
+	
+	private String getValue(Cell cell) {
+		if(cell != null) {
+			try{
+				return cell.getStringCellValue();
+			}catch (Exception e) {
+				return String.valueOf(cell.getNumericCellValue());
+			}
+		}
+		return "";
 	}
 }

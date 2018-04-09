@@ -1,5 +1,6 @@
 package com.zhu.common.util;
 
+import java.io.UnsupportedEncodingException;
 import java.util.UUID;
 
 import org.apache.log4j.LogManager;
@@ -119,5 +120,15 @@ public class WoUtil {
 	
 	public static String getWoot() {
 		return System.getProperty("wo.root");
+	}
+	
+	public static String parseGBK(String sIn) {
+		if (sIn == null || sIn.equals(""))
+			return sIn;
+		try {
+			return new String(sIn.getBytes("GBK"), "ISO-8859-1");
+		} catch (UnsupportedEncodingException usex) {
+			return sIn;
+		}
 	}
 }

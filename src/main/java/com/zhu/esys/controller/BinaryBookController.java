@@ -1,5 +1,6 @@
 package com.zhu.esys.controller;
 import java.io.File;
+import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
 
@@ -7,11 +8,14 @@ import javax.annotation.Resource;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.View;
 
 import com.zhu.common.entity.WoResultCode;
 import com.zhu.common.util.WoUtil;
@@ -76,8 +80,25 @@ public class BinaryBookController {
 		return WoResultCode.getSuccessCode();
 	}
 	
+	@Resource
+	@Qualifier("binaryBookView")
+	private View binaryBookView;
+	
 	@RequestMapping(value="/importDown")
-	public WoResultCode modelDown() {
+	public ModelAndView modelDown() {
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setView(binaryBookView);
+		return modelAndView;
+	}
+	
+	@RequestMapping(value="/importExcel")
+	public WoResultCode importExcel(MultipartFile excelFile) {
+		try(InputStream in = excelFile.getInputStream()) {
+			String fileName = excelFile.getName();
+			bookService.importExcel(in, fileName);
+		}catch (Exception e) {
+			return new WoResultCode(118, "文件失效");
+		}
 		return WoResultCode.getSuccessCode();
 	}
 	
