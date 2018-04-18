@@ -10,6 +10,8 @@
             	<th data-options="field:'content',width:100">内容</th>
             	<th data-options="field:'createTime',width:100">创作时间</th>
             	<th data-options="field:'count', width:100">访问次数</th>
+        		<th data-options="field:'userName', width:100">写作人</th>
+        		
         	</tr>
     	</thead>
 	</table>
