@@ -21,6 +21,12 @@
 		<div id="delete-article2" style="float:left">
 			<a id="delete-article2-btn" onclick="tjArticle2()" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add'">推荐</a>		
 		</div>
+		<div id="discuss-article2" style="float:left">
+			<a id="discuss-article2-btn" onclick="tjArticle2()" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add'">评论</a>		
+		</div>
+		<div id="see-discuss-article2" style="float:left">
+			<a id="see-discuss-btn" onclick="tjArticle2()" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add'">查看评论</a>		
+		</div>
 		<div id="search-article2" style="float:left">
 			<form id="search-article2-form" method="post">
 				<input name="searchContent" class="easyui-textbox" data-options="iconCls:'icon-search'" style="width:100px"/>			
