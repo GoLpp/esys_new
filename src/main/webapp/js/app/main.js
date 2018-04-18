@@ -58,6 +58,7 @@ $(document).ready(function() {
 								title: 'Error',
 								msg: result.message
 							});
+							changeImage(img);
 						} else {
 							// $('#woDlgLogin').dialog('close');		// close the dialog
 							// initTree ();

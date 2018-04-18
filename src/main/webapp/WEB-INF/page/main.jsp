@@ -29,8 +29,9 @@
 	<script type="text/javascript" src="js/app/sys.js"></script>
 	<script type="text/javascript">
 		var woLogin = <%=woLogin%>;
-		function changeImage(obj) {
-			obj.src = "<%=basePath%>/code?i=" + Math.random();
+		var imgs = $('#img');
+		function changeImage(imgs) {
+			imgs.src = "<%=basePath%>/code?i=" + Math.random();
 		}
 	</script>
 	<style type="text/css">
@@ -97,7 +98,7 @@
 				<label>验证码：</label>
 				<input name="num" class="easyui-textbox"  style="width:80px; height: 30px" />
 				<div style="margin-left:200px">
-					<img class="img" title="看不清，换一张" onclick="changeImage(this)">  
+					<img class="img" id="img" title="看不清，换一张" onclick="changeImage(this)">  
 				</div>
 			</div>			
 		</form>

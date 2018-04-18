@@ -26,7 +26,10 @@
 			<a id="down-allbook-btn" onclick="deleteallbook()" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add'">下载图书</a>		
 		</div>
 		<div id="seebook-allbook" style="float:left">
-			<a id="see-allbook-btn" onclick="seeallbook()" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'">预览</a>
+			<a id="see-allbook-btn" onclick="seeallbook()" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-edit'">评论</a>
+		</div>
+		<div id="seebook-discuss-allbook" style="float:left">
+			<a id="see-discuss-btn" onclick="seeDiscuss()" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'">查看评论</a>
 		</div>
 		<div id="search-allbook" style="float:left">
 			<form id="search-allbook-form" method="post">

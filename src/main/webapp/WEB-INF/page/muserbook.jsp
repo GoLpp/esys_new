@@ -9,7 +9,7 @@
             	<th data-options="field:'bookName',width:100">书名</th>
             	<th data-options="field:'upTime',width:100">上传时间</th>
    	            <th data-options="field:'userName',width:100">上传人</th>
-   	            <th data-options="field:'count',width:100">访问次数</th> 	        	
+   	            <th data-options="field:'counts',width:100">访问次数</th> 	        	
         	</tr>
     	</thead>
 	</table>
@@ -40,17 +40,9 @@
         		<label for="bookName">书籍名:</label>
        			<input class="easyui-textbox" type="text" name="bookName" data-options="required:true" />
    			 </div>
-    		<div class="fitem">
-        		<label for="upTime">上传时间:</label>
-       			<input class="easyui-textbox" type="text" name="upTime" data-options="required:true" />
-   			</div>
-    		<div class="fitem">
-        		<label for="detail">详细信息:</label>
-       			<input class="easyui-textbox" type="text" name="detail" data-options="" />
-   			</div>
    			<div class="fitem">
    				<label for="bookFile">选择文件</label>
-   				<input class="easyui-filebox" style="width:300px" buttonText="请选择文件">
+   				<input class="easyui-filebox" name="bookFile" style="width:300px" buttonText="请选择文件">
    			</div>
 	</form>
 	</div>
@@ -73,17 +65,9 @@
         		<label for="bookName">书籍名:</label>
        			<input class="easyui-textbox" type="text" name="bookName" data-options="required:true" />
    			 </div>
-    		<div class="fitem">
-        		<label for="upTime">上传时间:</label>
-       			<input class="easyui-textbox" type="text" name="upTime" data-options="required:true" />
-   			</div>
-    		<div class="fitem">
-        		<label for="detail">详细信息:</label>
-       			<input class="easyui-textbox" type="text" name="detail" data-options="" />
-   			</div>
    			<div class="fitem">
    				<label for="bookFile">选择文件</label>
-   				<input class="easyui-filebox" style="width:300px" buttonText="请选择文件">
+   				<input class="easyui-filebox" name="bookFile" style="width:300px" buttonText="请选择文件">
    			</div>
    		</form>
 	</div>
