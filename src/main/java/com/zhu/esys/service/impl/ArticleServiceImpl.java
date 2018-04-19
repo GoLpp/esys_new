@@ -66,15 +66,21 @@ public class ArticleServiceImpl implements ArticleService{
 			whereOrderBy = whereOrderBy + " and e.user.id = :userId";
 			props.put("userId", userDto.getId());
 		}
+		whereOrderBy = whereOrderBy + " order by counts desc";
 		WoPage<Article> articles = articleDao.findAllBy(whereOrderBy, page, rows, props);
 		ArticleDto articleDto = new ArticleDto();
 		return articleDto.gotDtos(articles.getRows());
 	}
 
 	@Override
-	public List<ArticleDto> findTj(Long page, Long rows) {
+	public List<ArticleDto> findTj(Long page, Long rows, String searchContent) {
 		Map<String, Object> props = new HashMap<>();
-		String whereOrderBy = "order by counts desc";
+		String whereOrderBy = "1=1";
+		if(null != searchContent) {
+			whereOrderBy = whereOrderBy + " and (e.title like :searchContent or e.content like :searchContent)";
+			props.put("searchContent",'%'+ searchContent +'%');
+		}
+		whereOrderBy = whereOrderBy + " order by counts desc";
 		WoPage<Article> articles = articleDao.findAllBy(whereOrderBy, page, rows, props);
 		ArticleDto dto = new ArticleDto();
 		return dto.gotDtos(articles.getRows());

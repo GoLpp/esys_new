@@ -42,7 +42,6 @@ public class UserBookServiceImpl implements UserBookService{
 	public void update(UserBookDto bookDto, UserDto userDto) {
 		UserBook book = bookDao.findById(bookDto.getId());
 		book.setBookName(bookDto.getBookName());
-		book.setCounts(bookDto.getCounts());
 		book.setUpTime(new Date());
 		book.setUrl(bookDto.getUrl());
 		bookDao.update(book);
@@ -61,15 +60,37 @@ public class UserBookServiceImpl implements UserBookService{
 		Map<String, Object> props = new HashMap<>();
 		UserBookDto userBookDto = new UserBookDto();
 		if(!WoUtil.isEmpty(searchContent)) {
-			whereOrderBy = whereOrderBy + " and (e.bookName like :searchContent or e.author like :searchContent)";
+			whereOrderBy = whereOrderBy + " and (e.bookName like :searchContent)";
 			props.put("searchContent", '%' + searchContent + '%');
 		}
 		
 		if(!userDto.isAdminAndBookAdmin()) {
-			whereOrderBy = whereOrderBy + " and e.user.is = :userId";
+			whereOrderBy = whereOrderBy + " and e.user.id = :userId";
 			props.put("userId", userDto.getId());
 		}
 		WoPage<UserBook> books = bookDao.findAllBy(whereOrderBy, Long.valueOf(page), Long.valueOf(rows), props);
 		return userBookDto.gotDtos(books.getRows());
+	}
+
+	@Override
+	public List<UserBookDto> getAll(Long page, Long rows, String searchContent) {
+		Map<String, Object> props = new HashMap<>();
+		String whereOrderBy = "1=1";
+		UserBookDto userBookDto = new UserBookDto();
+		if(!WoUtil.isEmpty(searchContent)) {
+			whereOrderBy = whereOrderBy + " and (e.bookName like :searchContent)";
+			props.put("searchContent", '%' + searchContent + '%');
+		}
+		WoPage<UserBook> books = bookDao.findAllBy(whereOrderBy, Long.valueOf(page), Long.valueOf(rows), props);
+		return userBookDto.gotDtos(books.getRows());
+	}
+
+	@Override
+	public void tjBook(String bookIds) {
+		for(String id : bookIds.split(",")) {
+			UserBook book = bookDao.findById(id);
+			book.setCounts(book.getCounts() + 1);
+			bookDao.update(book);
+		}
 	}
 }

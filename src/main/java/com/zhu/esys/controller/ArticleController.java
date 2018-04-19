@@ -51,8 +51,8 @@ public class ArticleController {
 	}
 	
 	@RequestMapping(value="/tjlist")
-	public GridEuiVo<ArticleDto> tjList(Long page, Long rows) {
-		List<ArticleDto> articleDtos = service.findTj((page-1)*rows, rows);
+	public GridEuiVo<ArticleDto> tjList(Long page, Long rows, String searchContent) {
+		List<ArticleDto> articleDtos = service.findTj((page-1)*rows, rows, searchContent);
 		return new GridEuiVo<>(Long.valueOf(articleDtos.size()), articleDtos);
 	} 
 	

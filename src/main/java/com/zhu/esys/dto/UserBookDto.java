@@ -13,6 +13,7 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.zhu.common.util.WoConstant;
 import com.zhu.esys.entity.User;
 import com.zhu.esys.entity.UserBook;
@@ -74,11 +75,12 @@ public class UserBookDto {
 	public void setBookName(String bookName) {
 		this.bookName = bookName;
 	}
-
+    @JsonFormat(pattern = WoConstant.FORMAT_DATE, locale = "zh", timezone = "GMT+8")
 	public Date getUpTime() {
 		return upTime;
 	}
-
+    
+    @DateTimeFormat(pattern = WoConstant.FORMAT_DATETIME)
 	public void setUpTime(Date upTime) {
 		this.upTime = upTime;
 	}

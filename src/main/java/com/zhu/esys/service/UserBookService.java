@@ -15,4 +15,8 @@ public interface UserBookService {
 
 	List<UserBookDto> getList(UserDto userDto, Long page, Long rows, String searchContent);
 
+	List<UserBookDto> getAll(Long page, Long rows, String searchContent);
+
+	void tjBook(String bookIds);
+
 }

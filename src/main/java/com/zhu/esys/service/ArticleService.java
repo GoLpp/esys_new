@@ -16,7 +16,7 @@ public interface ArticleService {
 
 	List<ArticleDto> findAll(String searchContent, Long page, Long rows, Map<String, Object> map);
 
-	List<ArticleDto> findTj(Long page, Long rows);
+	List<ArticleDto> findTj(Long page, Long rows, String searchContent);
 
 	void tuijian(String articleIds);
 

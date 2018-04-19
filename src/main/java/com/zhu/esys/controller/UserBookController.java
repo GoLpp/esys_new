@@ -74,4 +74,16 @@ public class UserBookController {
 		List<UserBookDto> dtos = userBookService.getList(userDto, (page-1)*rows, rows, searchContent);
 		return new GridEuiVo<>(Long.valueOf(dtos.size()), dtos);
 	}
+	
+	@RequestMapping(value="/listAll")
+	public GridEuiVo<UserBookDto> getAll(Long page, Long rows, String searchContent) {
+		List<UserBookDto> dtos = userBookService.getAll((page-1)*rows, rows, searchContent);
+		return new GridEuiVo<>(Long.valueOf(dtos.size()), dtos);
+	}
+	
+	@RequestMapping(value="/tjbook")
+	public WoResultCode tjBook(String bookIds) {
+		userBookService.tjBook(bookIds);
+		return WoResultCode.getSuccessCode();
+	}
 }

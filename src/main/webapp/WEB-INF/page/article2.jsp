@@ -22,10 +22,10 @@
 			<a id="delete-article2-btn" onclick="tjArticle2()" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add'">推荐</a>		
 		</div>
 		<div id="discuss-article2" style="float:left">
-			<a id="discuss-article2-btn" onclick="tjArticle2()" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add'">评论</a>		
+			<a id="discuss-article2-btn" onclick="discussArticle()" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-edit'">评论</a>		
 		</div>
 		<div id="see-discuss-article2" style="float:left">
-			<a id="see-discuss-btn" onclick="tjArticle2()" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add'">查看评论</a>		
+			<a id="see-discuss-btn" onclick="seeDiscussArticle()" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'">查看评论</a>		
 		</div>
 		<div id="search-article2" style="float:left">
 			<form id="search-article2-form" method="post">
@@ -75,7 +75,7 @@
 		}
 		console.log(row);
 		if (row.length != 0) {
-			$.messager.confirm('请确认', '您确定推荐这几本书吗？', function(r) {
+			$.messager.confirm('请确认', '您确定推荐这几篇文章吗？', function(r) {
 				// r为true表示点击了确定按钮，否则表示点击了取消按钮
 				if (r) {
 					$.post('sys/article/tuijian', {articleIds : str}, function(result) {
@@ -95,7 +95,7 @@
 			$.messager.alert({ // show error message
 				title : '提示',
 				icon : 'warning',
-				msg : '请选择要推荐的书籍'
+				msg : '请选择要推荐的文章'
 			});
 		}
 	}

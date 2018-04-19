@@ -2,7 +2,7 @@
          pageEncoding="UTF-8" %>
 <div>
 	<table id="dg-mmuserbook" class="easyui-datagrid" style="width:1100px;height:600px"
-        data-options="url:'sys/muserbook/pageList',fitColumns:true,
+        data-options="url:'sys/userbook/list',fitColumns:true,
         singleSelect:false,toolbar:'#muserbook-bar', pagination:true, rownumbers:true">
     	<thead>
         	<tr>
@@ -32,9 +32,9 @@
 	</div>
 	
 	<!-- 创建框  -->
-	<div id="create-dialog" class="easyui-dialog" title="创建景区" style="width:400px;height:350px; padding: 10px 20px"
+	<div id="create-dialog" class="easyui-dialog" title="创建图书" style="width:400px;height:350px; padding: 10px 20px"
         data-options="iconCls:'icon-save',resizable:true,modal:true,closed:true,buttons:'#create-dialog-btn'">
-		<form id="create-muserbook-form" method="post">
+		<form id="create-muserbook-form" method="post" enctype="multipart/form-data">
 			<div class="ftitle">请输入书籍信息信息：</div>
     		<div class="fitem">
         		<label for="bookName">书籍名:</label>
@@ -57,10 +57,11 @@
 	</div>
 	
 	<!-- 更新框 -->
-	<div id="update-muserbook-dialog" class="easyui-dialog" title="更新景区" style="width:400px;height:350px; padding: 10px 20px"
+	<div id="update-userbook-dialog" class="easyui-dialog" title="更新图书" style="width:400px;height:350px; padding: 10px 20px"
         data-options="iconCls:'icon-save',resizable:true,modal:true,closed:true,buttons:'#update-dialog-btn'">
-		<form id="update-muserbook-form" method="post">
+		<form id="update-userbook-form" method="post" enctype="multipart/form-data">
 			<div class="ftitle">请输入更新信息：</div>
+       			<input class="easyui-textbox" type="hidden" name="id" data-options="required:true" />
     		<div class="fitem">
         		<label for="bookName">书籍名:</label>
        			<input class="easyui-textbox" type="text" name="bookName" data-options="required:true" />
@@ -90,20 +91,24 @@
 	
 	function muserbookSave() {
 		$('#create-muserbook-form').form('submit', {
-			url: 'sys/muserbook/create',
+			url: 'sys/userbook/create',
 			onSubmit: function() {
 				return $(this).form("validate");
 			},
 			success: function(result) {
 				var result = eval('('+ result +')');
-				if(result.code != 1) {
+				if(result.success) {
 					$.messager.show({
 						title: '提示',
 						msg: result.msg
 					});
-				}else{
-					$('#create-dialog').dialog('close');
 					$('#dg-muserbook').datagrid('reload');
+					$('#create-dialog').dialog('close');
+				}else{
+					$.messager.show({
+						title: '提示',
+						msg: result.msg
+					});
 				}
 			}
 		});
@@ -114,10 +119,10 @@
 	}
 	
 	function updatemuserbook() {
-		var row = $('#dg-muserbook').datagrid('getSelected');
+		var row = $('#dg-mmuserbook').datagrid('getSelected');
 		if(row) {
-			$('#update-muserbook-dialog').dialog('open');
-			$('#update-muserbook-form').form('load', row);
+			$('#update-userbook-dialog').dialog('open');
+			$('#update-userbook-form').form('load', row);
 		}else{
 			$.messager.alert({
 				icon : 'warning',
@@ -128,33 +133,28 @@
 	}
 	
 	function saveUpdate() {
-		var row = $('#dg-muserbook').datagrid('getSelections');
-		if(row.length = 1) {
-			$('#update-muserbook-form').form('submit',{
-				url: 'sys/muserbook/update',
-				onSubmit: function() {
-					$(this).form('validate');
-				},
-				success: function(result) {
-					var result = eval('('+ result +')');
-					if(!result.success) {
-						$.messager.show({
-							title: '提示',
-							msg: result.msg
-						});
-					}else{
-						$('#update-muserbook-dialog').dialog('close');
-						$('#dg-muserbook').datagrid('reload');
-					}
+		$('#update-userbook-form').form('submit',{
+			url: 'sys/userbook/update',
+			onSubmit: function() {
+				$(this).form('validate');
+			},
+			success: function(result) {
+				var result = eval('('+ result +')');
+				if(result.success) {
+					$.messager.show({
+						title: '提示',
+						msg: result.msg
+					});
+					$('#update-userbook-dialog').dialog('close');
+					$('#dg-mmuserbook').datagrid('reload');
+				}else{
+					$.messager.show({
+						title: '提示',
+						msg: result.msg
+					});
 				}
-			});
-		}else{
-			$.messager.alert({
-				title: '提示',
-				icon : 'error',
-				msg: '请选择一条记录'
-			});			
-		}
+			}
+		});			
 	}
 	
 	function updatemuserbookCancel() {
@@ -162,7 +162,7 @@
 	}
 	
 	function deletemuserbook() {
-		var row = $('#dg-muserbook').datagrid('getSelections');
+		var row = $('#dg-mmuserbook').datagrid('getSelections');
 		var str = '';
 		for(var i=0; i < row.length; i++) {
 			str=row[i].id+','+str;
@@ -171,9 +171,9 @@
 			$.messager.confirm('请确认', '您确定要删除选中的用户吗？', function(r) {
 				// r为true表示点击了确定按钮，否则表示点击了取消按钮
 				if (r) {
-					$.post('sys/muserbook/delete', {muserbookIds : str}, function(result) {
+					$.post('sys/userbook/delete', {bookIds : str}, function(result) {
 						if (result.success) {
-							$('#dg-muserbook').datagrid('reload'); // reload grid data
+							$('#dg-mmuserbook').datagrid('reload'); // reload grid data
 						} else {
 							$.messager.alert({ // show error message
 								title : '错误',
@@ -186,62 +186,16 @@
 			});
 		}
 	}
-	//验证手机号码
-	$.extend($.fn.validatebox.defaults.rules, {    
-		phoneNum: { //验证手机号   
-	        validator: function(value, param){ 
-	         return /^1[3-8]+\d{9}$/.test(value);
-	        },    
-	        message: '请输入正确的手机号码。'   
-	    },
-	    
-	    telNum:{ //既验证手机号，又验证座机号
-	      validator: function(value, param){ 
-	          return /(^(0[0-9]{2,3}\-)?([2-9][0-9]{6,7})+(\-[0-9]{1,4})?$)|(^(()|(\d{3}\-))?(1[358]\d{9})$)/.test(value);
-	         },    
-	         message: '请输入正确的电话号码。' 
-	    }  
-	});
 	
-	function importmuserbook() {
-		$('#import-muserbook-dialog').dialog('open');
-	}
-	
-	//下载模板
-	function importDown() {
-		$('#form').form('submit',{
-			url: 'sys/muserbook/importDown',
-			onSubmit: function() {
-				$(this).form('validate');
-			},
-			susccess: function(result) {
-				$('#import-muserbook-dialog').dialog('close');
-			}
-		});
-	}
-	
-	//导入Excel
-	function saveImport() {
-		$('#import-muserbook-form').form('submit', {
-			url: 'sys/muserbook/importExcel',
-			onSubmit: function() {
-				$(this).form('validate');
-			},
-			success: function(result) {
-				var result = eval('('+ result +')');
-				if(result.code == 0) {
-					$.messager.show({
-						title: '提示',
-						msg: result.msg
-					});
-				}else{
-					$.messager.show({
-						title: '提示',
-						msg: '导入成功'
-					});
-					$('import-muserbook-dialog').dialog('close');
+	$('#dg-mmuserbook').datagrid({
+		onBeforeLoad: function(param) {
+			var value = $('#search-muserbook-form').serializeArray();
+			$.each(value,function() {
+				if(this.value != '' && this.value != undefined) {
+					param[this.name] = this.value;
 				}
-			}
-		});
-	}
+			});
+			return true;
+		}
+	});
 </script>
