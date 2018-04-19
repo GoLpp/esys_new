@@ -102,7 +102,7 @@
 						title: '提示',
 						msg: result.msg
 					});
-					$('#dg-muserbook').datagrid('reload');
+					$('#dg-mmuserbook').datagrid('reload');
 					$('#create-dialog').dialog('close');
 				}else{
 					$.messager.show({
