@@ -3,7 +3,7 @@
 <div>
 	<table id="dg-xuserbook" class="easyui-datagrid" style="width:1100px;height:600px"
         data-options="url:'sys/userbook/listAll',fitColumns:true,
-        singleSelect:false,toolbar:'#xuserbook-bar', pagination:true, rownumbers:true">
+        singleSelect:true,toolbar:'#xuserbook-bar', pagination:true, rownumbers:true">
     	<thead>
         	<tr>
             	<th data-options="field:'bookName',width:100">书名</th>
@@ -21,13 +21,13 @@
 		<div id="down-xuserbook" style="float:left">
 			<a id="down-xuserbook-btn" onclick="downBook()" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add'">下载</a>		
 		</div>
-		<div id="dicuss-xuserbook" style="float:left">
+<!-- 		<div id="dicuss-xuserbook" style="float:left">
 			<a id="discuss-xuserbook-btn" onclick="discussBook()" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-edit'">评论</a>		
 		</div>
 		<div id="see-discuss" style="float:left">
 			<a id="see-discuss-btn" onclick="seeDiscuss()" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'">查看品论</a>		
 		</div>		
-		<div id="search-xuserbook" style="float:left">
+ -->		<div id="search-xuserbook" style="float:left">
 			<form id="search-xuserbook-form" method="post">
 				<input name="searchContent" class="easyui-textbox" data-options="iconCls:'icon-search'" style="width:100px"/>			
 			</form>

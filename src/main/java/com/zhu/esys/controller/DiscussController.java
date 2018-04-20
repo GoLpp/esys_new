@@ -43,10 +43,28 @@ public class DiscussController {
 		return new GridEuiVo<>(Long.valueOf(dtos.size()), dtos);
 	}
 	
+	@RequestMapping(value="/listbyarticleid")
+	public GridEuiVo<DiscussDto> getById(String articleId, Long page, Long rows) {
+		List<DiscussDto> dtos = service.getById(articleId, (page-1)*rows, rows);
+		return new GridEuiVo<>(Long.valueOf(dtos.size()), dtos);
+	}
+	
 	@RequestMapping(value="/createBookDiscuss")
 	public WoResultCode createBookDiscuss(Map<String, Object> map, BookDiscussDto dto) {
 		UserDto userDto = (UserDto) map.get(ESysConstant.SESSION_USER);
 		service.createBookDiscuss(userDto, dto);
 		return WoResultCode.getSuccessCode();
+	}
+	
+	@RequestMapping(value="/listBookDiscuss")
+	public GridEuiVo<BookDiscussDto> getBookDiscuss(String bookId) {
+		List<BookDiscussDto> dtos = service.findBookDiscuss(bookId);
+		return new GridEuiVo<>(Long.valueOf(dtos.size()), dtos);
+	}
+	
+	@RequestMapping(value="/listAllBookDiscuss")
+	public GridEuiVo<BookDiscussDto> getAllBookDiscuss() {
+		List<BookDiscussDto> dtos = service.findAllBookDiscuss();
+		return new GridEuiVo<>(Long.valueOf(dtos.size()), dtos);
 	}
 }

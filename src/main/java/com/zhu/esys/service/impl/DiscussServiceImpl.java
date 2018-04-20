@@ -71,10 +71,37 @@ public class DiscussServiceImpl implements DiscussService{
 	public void createBookDiscuss(UserDto userDto, BookDiscussDto dto) {
 		User user = userDto.createEntity();
 		BinaryBook book = new BinaryBook();
-		book.setId(dto.getBookId());
+		book.setId(dto.getBookId().split(",")[0]);
 		BookDiscuss bookDiscuss = dto.createEntity();
 		bookDiscuss.setUser(user);
 		bookDiscuss.setBinaryBook(book);
 		bookDiscussDao.create(bookDiscuss);
+	}
+
+	@Override
+	public List<BookDiscussDto> findBookDiscuss(String bookId) {
+		String whereOrderBy = "where e.binaryBook.id = :bookId";
+		Map<String, Object> props = new HashMap<>();
+		BookDiscussDto dto = new BookDiscussDto();
+		props.put("bookId", bookId);
+		whereOrderBy = whereOrderBy + " order by createTime desc";
+		List<BookDiscuss> dtos = bookDiscussDao.findAllBy(whereOrderBy, props);
+		return dto.gotDtos(dtos);
+	}
+
+	@Override
+	public List<BookDiscussDto> findAllBookDiscuss() {
+		List<BookDiscuss> findAll = bookDiscussDao.findAll();
+		return new BookDiscussDto().gotDtos(findAll);
+	}
+
+	@Override
+	public List<DiscussDto> getById(String articleId, Long page, Long rows) {
+		String whereOrderBy = "where e.article.id = :articleId";
+		Map<String, Object> props = new HashMap<>();
+		props.put("articleId", articleId);
+		whereOrderBy = whereOrderBy + " order by createTime desc";
+		WoPage<Discuss> dtos = discussDao.findAllBy(whereOrderBy, page, rows, props);
+		return new DiscussDto().gotDtos(dtos.getRows());
 	}
 }

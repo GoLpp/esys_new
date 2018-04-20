@@ -17,4 +17,10 @@ public interface DiscussService {
 
 	void createBookDiscuss(UserDto userDto, BookDiscussDto dto);
 
+	List<BookDiscussDto> findBookDiscuss(String bookId);
+
+	List<BookDiscussDto> findAllBookDiscuss();
+
+	List<DiscussDto> getById(String articleId, Long page, Long rows);
+
 }

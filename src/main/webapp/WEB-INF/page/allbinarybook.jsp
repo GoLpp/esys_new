@@ -3,7 +3,7 @@
 <div>
 	<table id="dg-allbook" class="easyui-datagrid" style="width:1100px;height:600px"
         data-options="url:'sys/binarybook/list',fitColumns:true,
-        singleSelect:false,toolbar:'#allbook-bar', pagination:true, rownumbers:true">
+        singleSelect:true,toolbar:'#allbook-bar', pagination:true, rownumbers:true">
     	<thead>
         	<tr>
             	<th data-options="field:'id',width:150">图书编号</th>
@@ -26,7 +26,7 @@
 			<a id="down-allbook-btn" onclick="deleteallbook()" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add'">下载图书</a>		
 		</div>
 		<div id="seebook-allbook" style="float:left">
-			<a id="see-allbook-btn" onclick="seeallbook()" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-edit'">评论</a>
+			<a id="see-allbook-btn" onclick="discussBook()" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-edit'">评论</a>
 		</div>
 		<div id="seebook-discuss-allbook" style="float:left">
 			<a id="see-discuss-btn" onclick="seeDiscuss()" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'">查看评论</a>
@@ -36,7 +36,29 @@
 				<input name="searchContent" class="easyui-textbox" data-options="iconCls:'icon-search'" style="width:100px"/>			
 			</form>
 		</div>
-	</div>	
+	</div>
+	
+	<!-- 评论form -->
+	
+	<div id="binary-discuss-dialog" class="easyui-dialog" title="评论" style="width:600px;height:200px; padding: 10px 20px"
+        data-options="iconCls:'icon-save',resizable:true,modal:true,closed:true,buttons:'#discuss-btn'">
+		<form id="binary-discuss-form" method="post">
+			<input type="hidden" name="bookId"></input>
+    		<div class="fitem">
+        		<label for="content">内容:</label>
+       			<input class="easyui-textbox" type="text" name="content" data-options="required:true, multiline:true" style="width:400px; height:50px"/>
+   			</div>
+   		</form>
+	</div>
+	
+	<div id="discuss-btn">
+		<a id="discuss-save-btn" onclick="saveDisscuss()" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-ok'">确定</a>
+		<a id="discuss-cancel-btn" onclick="cancelDiscuss()" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-cancel'">取消</a>
+	</div>
+	
+	<!-- 评论列表  -->
+	<table id="discusslist" data-options="pagination:true,modal:true,closed:true" class="easyui-dialog" ></table>
+
 </div>
 
 <script type="text/javascript">
@@ -86,6 +108,83 @@
 				title: '提示',
 				icon: 'warning',
 				msg: '借阅的书籍不能超过五本'
+			});
+		}
+	}
+	
+	function discussBook() {
+		var book = $('#dg-allbook').datagrid('getSelected');
+		if(book) {
+			$('#binary-discuss-dialog').dialog('open');
+		}else{
+			$.messager.alert({
+				title : '警告',
+				icon : 'warning',
+				msg : '请选择一行数据'
+			});			
+		}
+	}
+	
+	function cancelDiscuss() {
+		$('#binary-discuss-dialog').dialog('close');		
+	}
+	
+	function saveDisscuss() {
+		var book = $('#dg-allbook').datagrid('getSelected');
+		$('#binary-discuss-form').form('submit',{
+			url: 'sys/discuss/createBookDiscuss?bookId=' + book.id,
+			doSubmit: function() {
+				return $(this).form('validate');
+			},
+			success: function(result) {
+				var result = eval('('+ result +')');
+				if(result.success) {
+					$.messager.show({
+						title: '提示',
+						msg: result.msg
+					});
+					$('#binary-discuss-dialog').dialog('close');
+				}else{
+					$.messager.show({
+						title: '提示',
+						msg: result.msg
+					});					
+				}
+			}
+		});
+	}
+	
+	function seeDiscuss() {
+		var row = $('#dg-allbook').datagrid('getSelected');
+		if(row){
+			var id = row.id;
+			$('#discusslist').dialog({
+				title:'评论查看',
+				width:600,
+				height:450
+			});
+			$('#discusslist').datagrid({
+				url: 'sys/discuss/listBookDiscuss?bookId='+id,
+				closed:false,
+				width: 600,
+				height: 350,
+			    loadMsg : "数据加载中......",
+			    rownumbers  : true,
+			    singleSelect : false,
+			    pageList : [100,50,20,10],
+				columns:[[
+			        {field:'content',title:'评论内容',width:100},
+			        {field:'userName',title:'评论人',width:100},
+			        {field:'createTime',title:'评论时间',width:100,align:'right'}
+			    ]]
+			});
+			$('#discusslist').dialog("open");
+			$('#discusslist').window("center");
+		}else{
+			$.messager.alert({
+				title : '警告',
+				icon : 'warning',
+				msg : '请选择一行数据'
 			});
 		}
 	}

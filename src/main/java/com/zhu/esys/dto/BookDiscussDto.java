@@ -1,6 +1,8 @@
 package com.zhu.esys.dto;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.zhu.common.util.WoConstant;
@@ -128,6 +130,15 @@ public class BookDiscussDto {
 		discuss.setContent(content);
 		discuss.setCreateTime(new Date());
 		return discuss;
+	}
+	
+	public List<BookDiscussDto> gotDtos(List<BookDiscuss> discusses) {
+		List<BookDiscussDto> dtos = new ArrayList<>();
+		for(BookDiscuss discuss : discusses) {
+			BookDiscussDto dto = new BookDiscussDto(discuss);
+			dtos.add(dto);
+		}
+		return dtos;
 	}
 	
 	
