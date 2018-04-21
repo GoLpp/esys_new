@@ -36,7 +36,7 @@
 		</div>
 	</div>
 	
-	<!-- 更新框 -->
+	<!-- 创建 -->
 	<div id="update-article2-dialog" class="easyui-dialog" title="更新文章" style="width:600px;height:600px; padding: 10px 20px"
         data-options="iconCls:'icon-save',resizable:true,modal:true,closed:true,buttons:'#update-dialog-btn'">
 		<form id="update-article2-form" method="post">
@@ -51,6 +51,15 @@
    			</div>
    		</form>
 	</div>
+	
+	<div id="article-discuss">
+			<a id="save-discuss-btn" onclick="saveDiscussArticle()" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-ok'">保存</a>		
+			<a id="cancel-discuss-btn" onclick="cancelDiscussArticle()" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-remove'">取消</a>			
+	</div>
+	
+	<!-- 评论展示框 -->
+	<table id="articlediscuss" data-options="pagination:true,modal:true,closed:true" class="easyui-dialog" ></table>
+	
 </div>
 
 <script type="text/javascript">
@@ -101,65 +110,7 @@
 			});
 		}
 	}
-	//验证手机号码
-	$.extend($.fn.validatebox.defaults.rules, {    
-		phoneNum: { //验证手机号   
-	        validator: function(value, param){ 
-	         return /^1[3-8]+\d{9}$/.test(value);
-	        },    
-	        message: '请输入正确的手机号码。'   
-	    },
-	    
-	    telNum:{ //既验证手机号，又验证座机号
-	      validator: function(value, param){ 
-	          return /(^(0[0-9]{2,3}\-)?([2-9][0-9]{6,7})+(\-[0-9]{1,4})?$)|(^(()|(\d{3}\-))?(1[358]\d{9})$)/.test(value);
-	         },    
-	         message: '请输入正确的电话号码。' 
-	    }  
-	});
-	
-	function importarticle2() {
-		$('#import-article2-dialog').dialog('open');
-	}
-	
-	//下载模板
-	function importDown() {
-		$('#form').form('submit',{
-			url: 'sys/article2/importDown',
-			onSubmit: function() {
-				$(this).form('validate');
-			},
-			susccess: function(result) {
-				$('#import-article2-dialog').dialog('close');
-			}
-		});
-	}
-	
-	//导入Excel
-	function saveImport() {
-		$('#import-article2-form').form('submit', {
-			url: 'sys/article2/importExcel',
-			onSubmit: function() {
-				$(this).form('validate');
-			},
-			success: function(result) {
-				var result = eval('('+ result +')');
-				if(result.code == 0) {
-					$.messager.show({
-						title: '提示',
-						msg: result.msg
-					});
-				}else{
-					$.messager.show({
-						title: '提示',
-						msg: '导入成功'
-					});
-					$('import-article2-dialog').dialog('close');
-				}
-			}
-		});
-	}
-	
+		
 	$('#dg-article2').datagrid({
 		onBeforeLoad : function (param) {// onBeforeLoad在datagrid请求列表数据之前被调用，param是请求的参数对象
 			var t = $('#search-article2-form').serializeArray();
@@ -173,4 +124,40 @@
 	        return true;
 		}
 	});
+	
+	function seeDiscussArticle() {
+		var row = $('#dg-article2').datagrid('getSelected');
+		if(row){
+			var id = row.id;
+			$('#articlediscuss').dialog({
+				title:'评论查看',
+				width:600,
+				height:450
+			});
+			$('#articlediscuss').datagrid({
+				url: 'sys/discuss/listArticleDiscuss?articleId='+id,
+				closed:false,
+				width: 600,
+				height: 350,
+			    loadMsg : "数据加载中......",
+			    rownumbers  : true,
+			    singleSelect : false,
+			    pageList : [100,50,20,10],
+				columns:[[
+			        {field:'content',title:'评论内容',width:100},
+			        {field:'userName',title:'评论人',width:100},
+			        {field:'createTime',title:'评论时间',width:100,align:'right'}
+			    ]]
+			});
+			$('#articlediscuss').dialog("open");
+			$('#articlediscuss').window("center");
+		}else{
+			$.messager.alert({
+				title : '警告',
+				icon : 'warning',
+				msg : '请选择一行数据'
+			});
+		}
+	}
+
 </script>
