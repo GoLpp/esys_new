@@ -3,7 +3,7 @@
 <div>
 	<table id="dg-article2" class="easyui-datagrid" style="width:1100px;height:600px"
         data-options="url:'sys/article/tjlist',fitColumns:true,
-        singleSelect:false,toolbar:'#article2-bar', pagination:true, rownumbers:true">
+        singleSelect:true,toolbar:'#article2-bar', pagination:true, rownumbers:true">
     	<thead>
         	<tr>
             	<th data-options="field:'title',width:100">标题</th>
@@ -37,17 +37,12 @@
 	</div>
 	
 	<!-- 创建 -->
-	<div id="update-article2-dialog" class="easyui-dialog" title="更新文章" style="width:600px;height:600px; padding: 10px 20px"
-        data-options="iconCls:'icon-save',resizable:true,modal:true,closed:true,buttons:'#update-dialog-btn'">
-		<form id="update-article2-form" method="post">
-			<input type="hidden" name="id"></input>
-    		<div class="fitem">
-        		<label for="title">标题:</label>
-       			<input class="easyui-textbox" type="text" name="title" data-options="required:true" />
-   			 </div>
+	<div id="discuss-article2-dialog" class="easyui-dialog" title="评论" style="width:500px;height:180px; padding: 10px 20px"
+        data-options="iconCls:'icon-save',resizable:true,modal:true,closed:true,buttons:'#article-discuss'">
+		<form id="discuss-article2-form" method="post">
     		<div class="fitem">
         		<label for="content">内容:</label>
-       			<input class="easyui-textbox" type="text" name="content" data-options="required:true, multiline:true" style="width:400px; height:400px"/>
+       			<input class="easyui-textbox" type="text" name="content" data-options="required:true, multiline:true" style="width:350px; height:60px"/>
    			</div>
    		</form>
 	</div>
@@ -135,7 +130,7 @@
 				height:450
 			});
 			$('#articlediscuss').datagrid({
-				url: 'sys/discuss/listArticleDiscuss?articleId='+id,
+				url: 'sys/discuss/listbyarticleid?articleId='+id,
 				closed:false,
 				width: 600,
 				height: 350,
@@ -159,5 +154,43 @@
 			});
 		}
 	}
-
+	
+	function discussArticle() {
+		var article = $('#dg-article2').datagrid('getSelected');
+		if(article) {
+			$('#discuss-article2-dialog').dialog('open');
+		}else{
+			$.messager.alert({
+				title : '警告',
+				icon : 'warning',
+				msg : '请选择一行数据'
+			})
+		}
+	}
+	
+	function saveDiscussArticle() {
+		var article = $('#dg-article2').datagrid('getSelected');
+		
+		$('#discuss-article2-form').form('submit', {
+			url: 'sys/discuss/create?articleId='+ article.id,
+			doSubmit: function() {
+				return $(this).form('validate');
+			},
+			success: function(result) {
+				var result = eval('('+ result +')');
+				if(result.success) {
+					$.messager.show({
+						title: '提示',
+						msg: result.msg
+					});
+					$('#discuss-article2-dialog').dialog('close');
+				}else{
+					$.messager.show({
+						title: '提示',
+						msg: result.msg
+					});
+				}
+			}
+		});
+	}
 </script>
