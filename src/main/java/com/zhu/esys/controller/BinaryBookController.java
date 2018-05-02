@@ -43,7 +43,7 @@ public class BinaryBookController {
 		try{
 			if(upBook != null) {
 				String realtivePath = "books/" + upBook.getOriginalFilename();
-				String obsolutePath = WoUtil.getWoot() + "/" + realtivePath;
+				String obsolutePath = WoUtil.getWoot() + realtivePath;
 				LOG.info("upBook=========" + obsolutePath);
 				upBook.transferTo(new File(obsolutePath));
 				dto.setUrl(realtivePath);
