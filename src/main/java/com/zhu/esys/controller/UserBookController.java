@@ -1,9 +1,13 @@
 package com.zhu.esys.controller;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -68,7 +72,7 @@ public class UserBookController {
 		return WoResultCode.getSuccessCode();
 	}
 	
-	@RequestMapping(value="/list")
+	@RequestMapping(value="/list") 
 	public GridEuiVo<UserBookDto> getList(Map<String, Object> map, Long page, Long rows, String searchContent) {
 		UserDto userDto = (UserDto) map.get(ESysConstant.SESSION_USER);
 		List<UserBookDto> dtos = userBookService.getList(userDto, (page-1)*rows, rows, searchContent);
@@ -84,6 +88,41 @@ public class UserBookController {
 	@RequestMapping(value="/tjbook")
 	public WoResultCode tjBook(String bookIds) {
 		userBookService.tjBook(bookIds);
+		return WoResultCode.getSuccessCode();
+	}
+	
+	@RequestMapping(value="/down")
+	public WoResultCode downUserBook(String url, HttpServletResponse resp) {
+		String downFile = WoUtil.getWoot() + "/" + url;
+		LOG.info("======" + downFile);
+		String fileName = WoUtil.parseGBK(url.substring(url.indexOf("/") + 1));
+		resp.setHeader("content-disposition","attachment;filename=" + fileName);
+		InputStream inputStream = null;
+		OutputStream out = null;
+		try {
+			inputStream = new FileInputStream(new File(downFile));
+			out = resp.getOutputStream();
+			byte[] buf = new byte[1024];
+			int length = 0;
+			while((length=inputStream.read(buf)) != -1) {
+				out.write(buf, 0, length);
+			}
+			out.flush();
+		} catch (Exception e) {
+			return new WoResultCode(001, "文件损坏");
+		}finally{
+			try {
+				if(out != null) {
+					out.close();
+				}
+				if(inputStream != null) {
+					inputStream.close();
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+		}
 		return WoResultCode.getSuccessCode();
 	}
 }

@@ -182,7 +182,7 @@
 						msg: result.msg
 					});
 				}else{
-					$('#create-dialog').dialog('close');
+					$('#create-dialog1').dialog('close');
 					$('#dg-book').datagrid('reload');
 				}
 			}

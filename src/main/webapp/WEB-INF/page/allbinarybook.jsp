@@ -23,7 +23,7 @@
 			<a id="lend-allbook-btn" onclick="lendBook()" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add'">借阅</a>
 		</div>		
 		<div id="down-allbook" style="float:left">
-			<a id="down-allbook-btn" onclick="deleteallbook()" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add'">下载图书</a>		
+			<a id="down-allbook-btn" onclick="downBook()" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add'">下载图书</a>		
 		</div>
 		<div id="seebook-allbook" style="float:left">
 			<a id="see-allbook-btn" onclick="discussBook()" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-edit'">评论</a>
@@ -58,7 +58,9 @@
 	
 	<!-- 评论列表  -->
 	<table id="discusslist" data-options="pagination:true,modal:true,closed:true" class="easyui-dialog" ></table>
-
+	
+	<!-- 提交下载信息 -->
+	<form id="down-book" method="post"></form>
 </div>
 
 <script type="text/javascript">
@@ -187,5 +189,24 @@
 				msg : '请选择一行数据'
 			});
 		}
+	}
+	
+	function downBook() {
+		var book = $('#dg-allbook').datagrid('getSelected');
+		$('#down-book').form('submit', {
+			url: 'sys/binarybook/down?url=' + book.url,
+			doSubmit: function() {
+				return true;
+			},
+			success: function(result) {
+				var result = eval('('+ result +')');
+				if(!result.success) {
+					$.messager.show({
+						title: '提示',
+						msg: result.msg
+					});
+				}
+			}
+		});
 	}
 </script>

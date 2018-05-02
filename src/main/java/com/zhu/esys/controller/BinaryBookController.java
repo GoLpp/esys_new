@@ -1,15 +1,19 @@
 package com.zhu.esys.controller;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -20,7 +24,6 @@ import org.springframework.web.servlet.View;
 import com.zhu.common.entity.WoResultCode;
 import com.zhu.common.util.WoUtil;
 import com.zhu.esys.ESysException;
-import com.zhu.esys.dto.ArticleDto;
 import com.zhu.esys.dto.BinaryBookDto;
 import com.zhu.esys.dto.UserDto;
 import com.zhu.esys.service.BinaryBookService;
@@ -41,6 +44,7 @@ public class BinaryBookController {
 			if(upBook != null) {
 				String realtivePath = "books/" + upBook.getOriginalFilename();
 				String obsolutePath = WoUtil.getWoot() + "/" + realtivePath;
+				LOG.info("upBook=========" + obsolutePath);
 				upBook.transferTo(new File(obsolutePath));
 				dto.setUrl(realtivePath);
 			}
@@ -112,6 +116,41 @@ public class BinaryBookController {
 	public WoResultCode returnBook(String bookIds, Map<String, Object> map) {
 		UserDto userDto = (UserDto) map.get(ESysConstant.SESSION_USER);
 		bookService.returnBook(bookIds, userDto);
+		return WoResultCode.getSuccessCode();
+	}
+	
+	@RequestMapping(value="/down")
+	public WoResultCode downBook(String url, HttpServletResponse resp) {
+		String downFile = WoUtil.getWoot() + "/" + url;
+		LOG.info("============" + downFile);
+		String fileName = WoUtil.parseGBK(url.substring(url.indexOf("/") + 1));
+		resp.setHeader("content-disposition","attachment;filename=" + fileName);
+		InputStream inputStream = null;
+		OutputStream out = null;
+		try {
+			inputStream = new FileInputStream(new File(downFile));
+			out = resp.getOutputStream();
+			byte[] buf = new byte[1024];
+			int length = 0;
+			while((length=inputStream.read(buf)) != -1) {
+				out.write(buf, 0, length);
+			}
+			out.flush();
+		} catch (Exception e) {
+			return new WoResultCode(001, "文件损坏");
+		}finally{
+			try {
+				if(out != null) {
+					out.close();
+				}
+				if(inputStream != null) {
+					inputStream.close();
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+		}
 		return WoResultCode.getSuccessCode();
 	}
 }

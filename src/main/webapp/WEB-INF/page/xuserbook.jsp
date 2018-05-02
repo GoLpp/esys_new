@@ -19,7 +19,7 @@
 			<a id="tuijian-xuserbook-btn" onclick="tuijianBook()" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add'">推荐</a>		
 		</div>
 		<div id="down-xuserbook" style="float:left">
-			<a id="down-xuserbook-btn" onclick="downBook()" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add'">下载</a>		
+			<a id="down-xuserbook-btn" onclick="downUserBook()" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add'">下载</a>		
 		</div>
 <!-- 		<div id="dicuss-xuserbook" style="float:left">
 			<a id="discuss-xuserbook-btn" onclick="discussBook()" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-edit'">评论</a>		
@@ -32,7 +32,9 @@
 				<input name="searchContent" class="easyui-textbox" data-options="iconCls:'icon-search'" style="width:100px"/>			
 			</form>
 		</div>
-	</div>	
+	</div>
+	
+	<form id="downUserBook" method="post"></form>	
 </div>
 
 <script type="text/javascript">
@@ -74,4 +76,23 @@
 			return true;
 		}
 	});
+	
+	function downUserBook() {
+		var book = $('#dg-xuserbook').datagrid('getSelected');
+		$('#downUserBook').form('submit', {
+			url: 'sys/userbook/down?url=' + book.url,
+			doSubmit: function() {
+				return true;
+			},
+			success: function(result) {
+				var result = eval('('+ result +')');
+				if(!result.success) {
+					$.messager.show({
+						title: '提示',
+						msg: result.msg
+					});
+				}
+			}
+		});
+	}
 </script>
