@@ -27,6 +27,7 @@
 	<script type="text/javascript" src="js/app/wo.js"></script>
 	<script type="text/javascript" src="js/app/main.js"></script>
 	<script type="text/javascript" src="js/app/sys.js"></script>
+	<script type="text/javascript" src="js/echarts/echarts.js"></script>
 	<script type="text/javascript">
 		var woLogin = <%=woLogin%>;
 		var imgs = $('#img');
@@ -71,15 +72,8 @@
 	<!-- tabs -->
 	<div id="woContentTabPanel" data-options="region:'center',title:'<%=woWelcomeMsg%>'" class="easyui-tabs" style="width:700px;height:250px">
 		<div title="主页" style="padding:10px">
-			<p style="font-size:14px">jQuery EasyUI framework helps you build your web pages easily.</p>
-			<ul>
-				<li>easyui is a collection of user-interface plugin based on jQuery.</li>
-				<li>easyui provides essential functionality for building modem, interactive, javascript applications.</li>
-				<li>using easyui you don't need to write many javascript code, you usually defines user-interface by writing some HTML markup.</li>
-				<li>complete framework for HTML5 web page.</li>
-				<li>easyui save your time and scales while developing your products.</li>
-				<li>easyui is very easy but powerful.</li>
-			</ul>
+		    <div id="main" style="width: 500px;height:400px; float:left"></div>
+		    <div id="article" style="width: 500px;height:400px; float:left"></div>
 		</div>
 	</div>
 	<div id="woDlgLogin" class="easyui-dialog" style="width:400px;height:300px;padding:10px 20px"
@@ -187,6 +181,7 @@
 			});
 		}
 	});
-
+	
+	
 </script>
 </html>

@@ -93,6 +93,15 @@ public class ArticleServiceImpl implements ArticleService{
 			article.setCounts(article.getCounts()+1);
 		}
 	}
+
+	@Override
+	public List<ArticleDto> getData() {
+		String whereOrOrderBy = "order by counts desc";
+		Map<String, Object> map = new HashMap<>();
+		WoPage<Article> artiles = articleDao.findAllBy(whereOrOrderBy, Long.valueOf(0), Long.valueOf(5), map);
+		List<ArticleDto> dtos = new ArticleDto().gotDtos(artiles.getRows());
+		return dtos;
+	}
 	
 	
 }

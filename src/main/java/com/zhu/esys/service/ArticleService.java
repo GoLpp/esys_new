@@ -20,4 +20,6 @@ public interface ArticleService {
 
 	void tuijian(String articleIds);
 
+	List<ArticleDto> getData();
+
 }

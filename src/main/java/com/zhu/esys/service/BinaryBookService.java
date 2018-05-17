@@ -26,4 +26,7 @@ public interface BinaryBookService {
 
 	void importExcel(InputStream in, String fileName) throws IOException;
 
+	List<BinaryBookDto> getData();
+
+
 }

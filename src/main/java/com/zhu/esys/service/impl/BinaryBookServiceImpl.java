@@ -201,4 +201,13 @@ public class BinaryBookServiceImpl implements BinaryBookService{
 		}
 		return "";
 	}
+
+	@Override
+	public List<BinaryBookDto> getData() {
+		String whereOrOrderBy = "order by counts desc";
+		Map<String, Object> props = new HashMap<>();
+		WoPage<BinaryBook> binaryBook = bookDao.findAllBy(whereOrOrderBy, Long.valueOf(0), Long.valueOf(5), props);
+		List<BinaryBookDto> dtos = new BinaryBookDto().dtos(binaryBook.getRows());
+		return dtos;
+	}
 }

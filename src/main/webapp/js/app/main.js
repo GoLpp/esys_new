@@ -1,4 +1,52 @@
 $(document).ready(function() {
+	
+	function initTable() {
+		$.get("sys/data/getData",function(bData){
+			var myChart = echarts.init(document.getElementById('main'));
+			var option = {
+		            title: {
+		                text: '热点书籍'
+		            },
+		            tooltip: {},
+		            legend: {
+		                data:['访问次数']
+		            },
+		            xAxis: {
+		                data: bData.bookName
+		            },
+		            yAxis: {},
+		            series: [{
+		                name: '访问次数',
+		                type: 'bar',
+		                data: bData.data
+		            }]
+		        };
+			 myChart.setOption(option);
+		  });
+		$.get("sys/data/getArticleData",function(bData){
+			var myChart = echarts.init(document.getElementById('article'));
+			var option = {
+		            title: {
+		                text: '热点文章'
+		            },
+		            tooltip: {},
+		            legend: {
+		                data:['访问次数']
+		            },
+		            xAxis: {
+		                data: bData.bookName
+		            },
+		            yAxis: {},
+		            series: [{
+		                name: '访问次数',
+		                type: 'bar',
+		                data: bData.data
+		            }]
+		        };
+			 myChart.setOption(option);
+		  });
+	}
+
 	// 初始化菜单树
 	function initTree () {
 		// 设置左侧菜单树参数
@@ -22,6 +70,7 @@ $(document).ready(function() {
 				}
 			}
 		});
+		
 		// tabpanel上增加按钮，实现退出系统功能
 		$('#woContentTabPanel').panel ({
 			tools : [{
@@ -70,5 +119,7 @@ $(document).ready(function() {
 		});
 	} else {
 		initTree ();
+		initTable();
 	}	
 });
+
